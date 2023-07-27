@@ -1,9 +1,9 @@
-import Image from 'next/image'
+"use client";
+
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div>
-      Ola, Whats up?
-    </div>
-  )
+  // when user lands on the home page, redirect to /dashboard
+  useRouter().push("/dashboard");
+  return null;
 }
