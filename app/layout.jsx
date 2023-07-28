@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
           }}
         />
         <div className="flex h-[100dvh]">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <div className="flex flex-1 flex-col ">
             <Header />
             <main className="relative h-full overflow-y-scroll bg-gray-50 pb-24 pe-16 ps-8 pt-16">

@@ -20,6 +20,7 @@ const CabinsTable = ({ cabins, error, mutate }) => {
     <Table className="text-base">
       <TableHeader>
         <TableRow>
+          <TableHead></TableHead>
           <TableHead>Cabin</TableHead>
           <TableHead>Capacity</TableHead>
           <TableHead>Price</TableHead>

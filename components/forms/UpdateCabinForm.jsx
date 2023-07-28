@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-const InsertCabinForm = ({ refreshOnCabinSubmit }) => {
+const UpdateCabinForm = ({ refreshOnCabinSubmit }) => {
   // 1. Initialize the useForm hook and get form methods and state
   const { register, handleSubmit, formState, setError, reset } = useForm();
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +56,10 @@ const InsertCabinForm = ({ refreshOnCabinSubmit }) => {
 
   return (
     // 3. Create the form with onSubmit handler
-    <form className="mx-auto mt-8 max-w-lg w-full" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="mx-auto mt-8 w-full max-w-lg"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {/* Name field */}
       <div className="mb-4">
         <Label htmlFor="name" className="text-base">
@@ -178,15 +181,9 @@ const InsertCabinForm = ({ refreshOnCabinSubmit }) => {
       {/* Cabin photo field */}
       <div className="mb-4">
         <Label htmlFor="cabinPhoto" className="text-base">
-          Cabin Photo
+          Cabin Photo (optional)
         </Label>
-        <Input
-          {...register("cabinPhoto", {
-            required: "Cabin Photo is required",
-          })}
-          type="file"
-          id="cabinPhoto"
-        />
+        <Input {...register("cabinPhoto")} type="file" id="cabinPhoto" />
         {/* Show validation error message */}
         {formState.errors.cabinPhoto && (
           <span className="mt-1 text-sm text-red-600">
@@ -195,7 +192,7 @@ const InsertCabinForm = ({ refreshOnCabinSubmit }) => {
         )}
       </div>
 
-      {/* Add Cabin and Cancel buttons */}
+      {/* Save and Cancel buttons */}
       <div className="flex justify-end space-x-4">
         <Button
           type="reset"
@@ -213,10 +210,10 @@ const InsertCabinForm = ({ refreshOnCabinSubmit }) => {
           {isLoading ? (
             <>
               <PiSpinnerBold className="mr-2 h-5 w-5 animate-spin" />
-              <span>Adding...</span>
+              <span>Saving...</span>
             </>
           ) : (
-            "Add Cabin"
+            "Save"
           )}
         </Button>
       </div>
@@ -224,4 +221,4 @@ const InsertCabinForm = ({ refreshOnCabinSubmit }) => {
   );
 };
 
-export default InsertCabinForm;
+export default UpdateCabinForm;
