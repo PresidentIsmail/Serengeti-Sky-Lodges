@@ -1,32 +1,31 @@
 "use client";
 
+// libraries
 import { useState } from "react";
 import { useCabinsFormContext } from "@/context/CabinsFormContext";
 import useSWR from "swr";
 
+// supabase api
 import { getAllCabins } from "@/supabase/cabinsApi";
+
+// components
+import Loading from "../loading";
 import Heading from "@/components/ui/Heading";
+import { Button } from "@/components/ui/button";
 import CabinsTable from "@/components/cabins/CabinsTable";
 import InsertCabinForm from "@/components/forms/InsertCabinForm";
-import Loading from "../loading";
-import { Button } from "@/components/ui/button";
 import UpdateCabinForm from "@/components/forms/UpdateCabinForm";
-import { updateSearchText } from "hyper-search/src/actions";
+import Modal from "@/components/Modal";
 
 const Cabins = () => {
   // fetch the cabins from supabase using SWR
-  const {
-    data: cabins,
-    error,
-    mutate,
-    isLoading,
-    isValidating,
-  } = useSWR("/cabins", getAllCabins);
+  const { data: cabins, error, mutate } = useSWR("/cabins", getAllCabins);
 
   // get the state and dispatch function from the cabinsformcontext
   const showInsertCabinForm = useCabinsFormContext().showInsertCabinForm;
   const showUpdateCabinForm = useCabinsFormContext().showUpdateCabinForm;
   const toggleInsertCabinForm = useCabinsFormContext().toggleInsertCabinForm;
+  const toggleUpdateCabinForm = useCabinsFormContext().toggleUpdateCabinForm;
 
   // if there is an error fetching the data, display the error message
   if (error) return <div>Error loading cabins</div>;
@@ -55,9 +54,12 @@ const Cabins = () => {
 
       {/* insertcabinform. only shown when user clicks btn above */}
       {showInsertCabinForm && <InsertCabinForm refreshOnCabinSubmit={mutate} />}
+
       {/* updatecabinform. only shown when user clicks the edit btn */}
       {showUpdateCabinForm && (
-        <UpdateCabinForm  refreshOnCabinSubmit={mutate} />
+        <Modal toggleForm={toggleUpdateCabinForm}>
+          <UpdateCabinForm refreshOnCabinSubmit={mutate} />
+        </Modal>
       )}
     </div>
   );
