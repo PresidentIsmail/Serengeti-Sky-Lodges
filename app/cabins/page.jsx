@@ -2,6 +2,7 @@ import React from "react";
 
 import Heading from "@/components/ui/Heading";
 import CabinsTable from "@/components/cabins/CabinsTable";
+import CabinForm from "@/components/CabinForm";
 
 async function Cabins() {
   return (
@@ -13,6 +14,9 @@ async function Cabins() {
 
       {/* table display */}
       <CabinsTable />
+
+      {/* add cabin form */}
+      <CabinForm />
     </div>
   );
 }

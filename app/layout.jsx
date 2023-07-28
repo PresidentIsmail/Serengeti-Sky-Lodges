@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 
 import Sidebar from "@/components/sidebar/Sidebar";
 import Header from "@/components/header/Header";
+import { Toaster } from "react-hot-toast";
 
 const ceraPro = localFont({
   src: [
@@ -31,11 +32,33 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${ceraPro.variable} font-sans`}>
+        {/* use toaster in app */}
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ margin: "4rem" }}
+          toastOptions={{
+            success: {
+              style: {
+                background: "#10B981",
+                color: "#fff",
+              },
+              duration: 3000,
+            },
+            error: {
+              style: {
+                background: "#EF4444",
+                color: "#fff",
+              },
+              duration: 5000,
+            },
+          }}
+        />
         <div className="flex h-[100dvh]">
           <Sidebar />
           <div className="flex flex-1 flex-col ">
             <Header />
-            <main className="h-full bg-gray-50 pb-24 pe-16 ps-8 pt-16">
+            <main className="relative h-full overflow-y-scroll bg-gray-50 pb-24 pe-16 ps-8 pt-16">
               {children}
             </main>
           </div>
