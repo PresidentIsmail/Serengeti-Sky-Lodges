@@ -13,7 +13,8 @@ import { formatCurrency } from "@/utils/helpers";
 import { Button } from "../ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { TableRow, TableCell } from "@/components/ui/table";
-import UpdateCabinForm from "../forms/UpdateCabinForm";
+import ConfirmDeleteModal from "../modals/ConfirmDeleteModal";
+
 
 const placeholderImage = "https://placehold.co/600x400/png";
 
@@ -27,10 +28,15 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
     image,
   } = cabin;
   const [isLoading, setIsLoading] = useState(false);
-
   // get the state and dispatch function from the cabinsformcontext
   const toggleUpdateCabinForm = useCabinsFormContext().toggleUpdateCabinForm;
   const setCabins = useCabinsFormContext().setCabins;
+  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+
+  // function to toggle the confirm delete modal
+  const toggleConfirmDeleteModal = () => {
+    setShowConfirmDeleteModal((prevState) => !prevState);
+  };
 
   // when the user clicks the edit button, show the update cabin form and pass the cabin data to it
   const handleEditCabin = () => {
@@ -90,7 +96,7 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
 
           {/* Button to delete a cabin */}
           <Button
-            onClick={() => handleDeleteCabin(cabinId)}
+            onClick={toggleConfirmDeleteModal}
             variant="destructive"
             size="sm"
             disabled={isLoading}
@@ -110,6 +116,17 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
           </Button>
         </TableCell>
       </TableRow>
+
+       {/* 
+          show confirm delete modal when user clicks delete,t
+          if user confirms, send submit
+      */}
+      {showConfirmDeleteModal && (
+        <ConfirmDeleteModal
+          onCancel={toggleConfirmDeleteModal}
+          onConfirm={() => handleDeleteCabin(cabinId)}
+        />
+      )}
     </>
   );
 };

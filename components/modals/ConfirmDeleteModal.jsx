@@ -1,13 +1,36 @@
 import React from "react";
+import { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
 const ConfirmDeleteModal = ({ onCancel, onConfirm }) => {
+  const modalRef = useRef(null);
+
+  // when a click is detected outside the modal, close the form
+  useEffect(() => {
+    const closeForm = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onCancel();
+      }
+    };
+
+    // add event listener to the window
+    window.addEventListener("click", closeForm, true);
+
+    // remove event listener when component unmounts
+    return () => {
+      window.removeEventListener("click", closeForm);
+    };
+  }, [onCancel]);
+
   return ReactDOM.createPortal(
     <>
       <div className="fixed inset-0 bg-black opacity-80"></div>
-      <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 bg-white shadow-lg rounded-md">
-        <h2 className="text-lg font-semibold mb-4">Confirm Delete</h2>
-        <p className="text-gray-600 mb-6">
+      <div
+        ref={modalRef}
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-md bg-white p-6 shadow-lg"
+      >
+        <h2 className="mb-4 text-lg font-semibold">Confirm Delete</h2>
+        <p className="mb-6 text-gray-600">
           Are you sure you want to delete this item? This action cannot be
           undone.
         </p>
@@ -27,7 +50,7 @@ const ConfirmDeleteModal = ({ onCancel, onConfirm }) => {
         </div>
       </div>
     </>,
-    document.body
+    document.body,
   );
 };
 
