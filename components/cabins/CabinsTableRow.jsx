@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { useCabinsFormContext } from "@/context/CabinsFormContext";
 
 import { deleteCabin } from "@/supabase/cabinsApi";
 
@@ -26,6 +27,16 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
     image,
   } = cabin;
   const [isLoading, setIsLoading] = useState(false);
+
+  // get the state and dispatch function from the cabinsformcontext
+  const toggleUpdateCabinForm = useCabinsFormContext().toggleUpdateCabinForm;
+  const setCabins = useCabinsFormContext().setCabins;
+
+  // when the user clicks the edit button, show the update cabin form and pass the cabin data to it
+  const handleEditCabin = () => {
+    toggleUpdateCabinForm();
+    setCabins(cabin);
+  };
 
   // This code deletes a cabin from the database
   const handleDeleteCabin = async (cabinId) => {
@@ -69,7 +80,7 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
         <TableCell className="text-right">
           {/* Button to edit a cabin */}
           <Button
-            onClick={() => console.log("edit" + cabinId)}
+            onClick={() => handleEditCabin(cabin)}
             size="sm"
             className="mr-2 bg-green-700 hover:bg-green-700/80"
           >

@@ -24,17 +24,6 @@ export async function deleteCabin(cabinId) {
   }
 }
 
-// insert a cabin
-// export async function insertCabin(cabin) {
-//   const { data, error } = await supabase.from(table).insert([cabin]).single();
-
-//   if (error) {
-//     throw error;
-//   }
-
-//   return data;
-// }
-
 // insert a cabin with image
 export async function insertCabin(cabin) {
   try {
@@ -81,5 +70,46 @@ export async function insertCabin(cabin) {
     // Handle any errors and prevent adding data if there's an issue with image upload
     console.error(error);
     throw new Error("Error adding cabin with image");
+  }
+}
+
+// update a cabin by ID
+export async function updateCabin(cabinId, updatedCabin) {
+  try {
+    if (updatedCabin.image && typeof updatedCabin.image === "object") {
+      // If the cabin includes a new image, upload it to the "cabin-test-images" bucket
+      const uniqueId = uuidv4();
+      const fileName = `${uniqueId}-${updatedCabin.image.name}`;
+
+      const { data: imageUploadData, error: imageUploadError } =
+        await supabase.storage
+          .from("cabin-test-images")
+          .upload(fileName, updatedCabin.image);
+
+      if (imageUploadError) {
+        throw imageUploadError;
+      }
+
+      const imagePath = imageUploadData.path;
+      updatedCabin.image = `https://xwpwrzydtdujobdfhkqd.supabase.co/storage/v1/object/public/cabin-test-images/${imagePath}`;
+    } else {
+      // If no new image was selected, remove the image field from updatedCabin
+      delete updatedCabin.image;
+    }
+
+    // Update the cabin in the database using the cabinId
+    const { data, error } = await supabase
+      .from(table)
+      .update(updatedCabin)
+      .match({ id: cabinId });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error updating cabin");
   }
 }
