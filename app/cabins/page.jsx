@@ -5,7 +5,7 @@ import useSWR from "swr";
 import { getAllCabins } from "@/supabase/cabinsApi";
 import Heading from "@/components/ui/Heading";
 import CabinsTable from "@/components/cabins/CabinsTable";
-import CabinForm from "@/components/CabinForm";
+import InsertCabinForm from "@/components/forms/InsertCabinForm";
 import Loading from "../loading";
 
 const Cabins = () => {
@@ -37,7 +37,7 @@ const Cabins = () => {
       <CabinsTable cabins={cabins} error={error} mutate={mutate} />
 
       {/* add cabin form */}
-      <CabinForm refreshOnCabinSubmit={mutate} />
+      <InsertCabinForm refreshOnCabinSubmit={mutate} />
     </div>
   );
 };

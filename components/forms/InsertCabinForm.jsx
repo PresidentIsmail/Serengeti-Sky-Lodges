@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-const CabinForm = ({ refreshOnCabinSubmit }) => {
+const InsertCabinForm = ({ refreshOnCabinSubmit }) => {
   // 1. Initialize the useForm hook and get form methods and state
   const { register, handleSubmit, formState, setError, reset } = useForm();
   const [isLoading, setIsLoading] = useState(false);
@@ -224,4 +224,4 @@ const CabinForm = ({ refreshOnCabinSubmit }) => {
   );
 };
 
-export default CabinForm;
+export default InsertCabinForm;

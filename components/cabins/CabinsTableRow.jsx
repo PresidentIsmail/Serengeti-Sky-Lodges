@@ -25,7 +25,7 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // This code deletes a cabin from the database
-const handleDeleteCabin = async (cabinId) => {
+  const handleDeleteCabin = async (cabinId) => {
     setIsLoading(true);
     try {
       await deleteCabin(cabinId);
@@ -82,6 +82,5 @@ const handleDeleteCabin = async (cabinId) => {
     </TableRow>
   );
 };
-
 
 export default CabinsTableRow;
