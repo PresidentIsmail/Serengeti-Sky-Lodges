@@ -4,12 +4,15 @@ import { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
-import { PiSpinnerBold } from "react-icons/pi";
-import { TableRow, TableCell } from "@/components/ui/table";
 import { deleteCabin } from "@/supabase/cabinsApi";
+
+import { CiEdit } from "react-icons/ci";
+import { PiSpinnerBold, PiTrash } from "react-icons/pi";
 import { formatCurrency } from "@/utils/helpers";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "../ui/button";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { TableRow, TableCell } from "@/components/ui/table";
+import UpdateCabinForm from "../forms/UpdateCabinForm";
 
 const placeholderImage = "https://placehold.co/600x400/png";
 
@@ -17,8 +20,8 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
   const {
     id: cabinId,
     name,
-    maxCapacity,
-    regularPrice,
+    maxcapacity,
+    regularprice,
     discount,
     image,
   } = cabin;
@@ -40,46 +43,63 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
   };
 
   return (
-    <TableRow className="h-full align-middle">
-      <TableCell className="font-medium">
-        <div className="h-[auto] w-[200px]">
-          <AspectRatio ratio={16 / 9}>
-            <Image
-              src={image || placeholderImage}
-              alt={name}
-              fill
-              sizes="(max-width: 600px) 100vw, 600px"
-              className="rounded-md object-cover"
-            />
-          </AspectRatio>
-        </div>
-      </TableCell>
-      <TableCell className="font-medium">{name}</TableCell>
-      <TableCell>{maxCapacity}</TableCell>
-      <TableCell className="font-semibold">
-        {formatCurrency(regularPrice)}
-      </TableCell>
-      <TableCell className="text-right text-green-600">
-        {formatCurrency(discount)}
-      </TableCell>
-      <TableCell className="text-right">
-        <Button
-          onClick={() => handleDeleteCabin(cabinId)}
-          variant="destructive"
-          size="sm"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <>
-              <PiSpinnerBold className="mr-2 h-5 w-5 animate-spin" />
-              Deleting...
-            </>
-          ) : (
-            "Delete"
-          )}
-        </Button>
-      </TableCell>
-    </TableRow>
+    <>
+      <TableRow className="h-full align-middle">
+        <TableCell className="font-medium">
+          <div className="h-[auto] w-[200px]">
+            <AspectRatio ratio={16 / 9}>
+              <Image
+                src={image || placeholderImage}
+                alt={name}
+                fill
+                sizes="(max-width: 600px) 100vw, 600px"
+                className="rounded-md object-cover"
+              />
+            </AspectRatio>
+          </div>
+        </TableCell>
+        <TableCell className="font-medium">{name}</TableCell>
+        <TableCell>{maxcapacity}</TableCell>
+        <TableCell className="font-semibold">
+          {formatCurrency(regularprice)}
+        </TableCell>
+        <TableCell className="text-right text-green-600">
+          {formatCurrency(discount)}
+        </TableCell>
+        <TableCell className="text-right">
+          {/* Button to edit a cabin */}
+          <Button
+            onClick={() => console.log("edit" + cabinId)}
+            size="sm"
+            className="mr-2 bg-green-700 hover:bg-green-700/80"
+          >
+            <CiEdit className="mr-2 h-5 w-5" />
+            Edit
+          </Button>
+
+          {/* Button to delete a cabin */}
+          <Button
+            onClick={() => handleDeleteCabin(cabinId)}
+            variant="destructive"
+            size="sm"
+            disabled={isLoading}
+            className=" hover:hover:bg-red-500/80"
+          >
+            {isLoading ? (
+              <>
+                <PiSpinnerBold className="mr-2 h-5 w-5 animate-spin" />
+                Deleting...
+              </>
+            ) : (
+              <>
+                <PiTrash className="mr-2 h-5 w-5" />
+                Delete
+              </>
+            )}
+          </Button>
+        </TableCell>
+      </TableRow>
+    </>
   );
 };
 
