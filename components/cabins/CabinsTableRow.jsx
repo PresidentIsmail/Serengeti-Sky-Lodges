@@ -1,20 +1,26 @@
 "use client";
 
+// libs and hooks
 import { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useCabinsFormContext } from "@/context/CabinsFormContext";
+import { useAtom } from "jotai";
+import { showConfirmDeleteModalAtom } from "@/atoms";
 
+// utils and api
 import { deleteCabin } from "@/supabase/cabinsApi";
-
-import { CiEdit } from "react-icons/ci";
-import { PiSpinnerBold, PiTrash } from "react-icons/pi";
 import { formatCurrency } from "@/utils/helpers";
-import { Button } from "../ui/button";
+
+// components and icons
+import { CiEdit } from "react-icons/ci";
+import { HiDotsVertical } from "react-icons/hi";
+import { PiSpinnerBold, PiTrash } from "react-icons/pi";
+import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { TableRow, TableCell } from "@/components/ui/table";
-import ConfirmDeleteModal from "../modals/ConfirmDeleteModal";
-
+import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
+import TableContextMenu from "@/components/cabins/TableContextMenu";
 
 const placeholderImage = "https://placehold.co/600x400/png";
 
@@ -27,11 +33,17 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
     discount,
     image,
   } = cabin;
-  const [isLoading, setIsLoading] = useState(false);
   // get the state and dispatch function from the cabinsformcontext
   const toggleUpdateCabinForm = useCabinsFormContext().toggleUpdateCabinForm;
   const setCabins = useCabinsFormContext().setCabins;
+  // Local state to manage the display of the ConfirmDeleteModal for each row
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [showContextMenu, setShowContextMenu] = useState(false);
+
+  // function to toggle the display of the context menu
+  const toggleContextMenu = () => {
+    setShowContextMenu((prevState) => !prevState);
+  };
 
   // function to toggle the confirm delete modal
   const toggleConfirmDeleteModal = () => {
@@ -46,7 +58,6 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
 
   // This code deletes a cabin from the database
   const handleDeleteCabin = async (cabinId) => {
-    setIsLoading(true);
     try {
       await deleteCabin(cabinId);
       toast.success("Cabin deleted successfully");
@@ -54,8 +65,6 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
     } catch (error) {
       console.error(error);
       toast.error("Error deleting cabin");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -83,41 +92,29 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
         <TableCell className="text-right text-green-600">
           {formatCurrency(discount)}
         </TableCell>
-        <TableCell className="text-right">
-          {/* Button to edit a cabin */}
-          <Button
-            onClick={() => handleEditCabin(cabin)}
-            size="sm"
-            className="mr-2 bg-green-700 hover:bg-green-700/80"
-          >
-            <CiEdit className="mr-2 h-5 w-5" />
-            Edit
-          </Button>
 
-          {/* Button to delete a cabin */}
+        {/* Context Menu - displays btns to edit & dlt */}
+        <TableCell className="text-right ">
+          {/* icon that will display the menu */}
+          <span className="sr-only">Open options</span>
           <Button
-            onClick={toggleConfirmDeleteModal}
-            variant="destructive"
-            size="sm"
-            disabled={isLoading}
-            className=" hover:hover:bg-red-500/80"
+            onClick={toggleContextMenu}
+            className="relative mr-4 rounded-full bg-white p-2 hover:bg-gray-100"
           >
-            {isLoading ? (
-              <>
-                <PiSpinnerBold className="mr-2 h-5 w-5 animate-spin" />
-                Deleting...
-              </>
-            ) : (
-              <>
-                <PiTrash className="mr-2 h-5 w-5" />
-                Delete
-              </>
+            <HiDotsVertical className="h-6 w-6 text-gray-800 " />
+
+            {/* Context Menu */}
+            {showContextMenu && (
+              <TableContextMenu
+                toggleConfirmDeleteModal={toggleConfirmDeleteModal}
+                toggleUpdateCabinForm={handleEditCabin}
+              />
             )}
           </Button>
         </TableCell>
       </TableRow>
 
-       {/* 
+      {/* 
           show confirm delete modal when user clicks delete,t
           if user confirms, send submit
       */}

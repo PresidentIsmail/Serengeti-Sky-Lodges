@@ -6,21 +6,15 @@ import { PiSpinnerBold, PiTrash } from "react-icons/pi";
 import { CiEdit } from "react-icons/ci";
 import { Button } from "../ui/button";
 
-const TableContextMenu = () => {
-  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useAtom(
-    showConfirmDeleteModalAtom,
-  );
-
-  // function to toggle the confirm delete modal
-  const toggleConfirmDeleteModal = () => {
-    setShowConfirmDeleteModal((prevState) => !prevState);
-  };
-
+const TableContextMenu = ({
+  toggleConfirmDeleteModal,
+  toggleUpdateCabinForm,
+}) => {
   return (
-    <div className=" absolute right-10 overflow-hidden rounded-xl  bg-white shadow-md">
+    <div className=" absolute right-10 top-0 overflow-hidden rounded-xl  bg-white shadow-md">
       <div className="flex cursor-pointer flex-col">
         <>
-          <MenuItem onClick={() => {}} label="Edit" />
+          <MenuItem onClick={toggleUpdateCabinForm} label="Edit" />
           <MenuItem onClick={toggleConfirmDeleteModal} label="Delete" />
         </>
       </div>
