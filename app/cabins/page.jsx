@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import CabinsTable from "@/components/cabins/CabinsTable";
 import InsertCabinForm from "@/components/forms/InsertCabinForm";
 import UpdateCabinForm from "@/components/forms/UpdateCabinForm";
-import Modal from "@/components/Modal";
+import FormModal from "@/components/modals/FormModal";
 
 const Cabins = () => {
   // fetch the cabins from supabase using SWR
@@ -53,13 +53,17 @@ const Cabins = () => {
       )}
 
       {/* insertcabinform. only shown when user clicks btn above */}
-      {showInsertCabinForm && <InsertCabinForm refreshOnCabinSubmit={mutate} />}
+      {showInsertCabinForm && (
+        <FormModal toggleForm={toggleInsertCabinForm}>
+          <InsertCabinForm refreshOnCabinSubmit={mutate} />
+        </FormModal>
+      )}
 
       {/* updatecabinform. only shown when user clicks the edit btn */}
       {showUpdateCabinForm && (
-        <Modal toggleForm={toggleUpdateCabinForm}>
+        <FormModal toggleForm={toggleUpdateCabinForm}>
           <UpdateCabinForm refreshOnCabinSubmit={mutate} />
-        </Modal>
+        </FormModal>
       )}
     </div>
   );

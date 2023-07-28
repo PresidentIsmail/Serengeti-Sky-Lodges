@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
-const Modal = ({ children, toggleForm }) => {
+const FormModal = ({ children, toggleForm }) => {
   const modalRef = useRef(null);
 
   // when a click is detected outside the modal, close the form
@@ -36,4 +36,4 @@ const Modal = ({ children, toggleForm }) => {
   );
 };
 
-export default Modal;
+export default FormModal;
