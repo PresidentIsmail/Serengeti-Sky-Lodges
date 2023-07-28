@@ -1,10 +1,31 @@
-import React from "react";
+"use client";
 
+import useSWR from "swr";
+
+import { getAllCabins } from "@/supabase/cabinsApi";
 import Heading from "@/components/ui/Heading";
 import CabinsTable from "@/components/cabins/CabinsTable";
 import CabinForm from "@/components/CabinForm";
+import Loading from "../loading";
 
-async function Cabins() {
+const Cabins = () => {
+  // fetch the cabins from supabase using SWR
+  const {
+    data: cabins,
+    error,
+    mutate,
+    isLoading,
+    isValidating,
+  } = useSWR("/cabins", getAllCabins);
+
+  // if there is an error fetching the data, display the error message
+  if (error) return <div>Error loading cabins</div>;
+
+  if (!cabins) return <Loading />;
+
+
+
+
   return (
     <div>
       <div className="mb-8 flex items-baseline justify-between">
@@ -13,12 +34,12 @@ async function Cabins() {
       </div>
 
       {/* table display */}
-      <CabinsTable />
+      <CabinsTable cabins={cabins} error={error} mutate={mutate} />
 
       {/* add cabin form */}
-      <CabinForm />
+      <CabinForm refreshOnCabinSubmit={mutate} />
     </div>
   );
-}
+};
 
 export default Cabins;

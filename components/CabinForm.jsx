@@ -1,26 +1,62 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
+import toast from "react-hot-toast";
 
+// function that will insert a new cabin into the database
+import { insertCabin } from "@/supabase/cabinsApi";
+
+import { PiSpinnerBold } from "react-icons/pi";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-const CabinForm = () => {
+const CabinForm = ({ refreshOnCabinSubmit }) => {
   // 1. Initialize the useForm hook and get form methods and state
-  const { register, handleSubmit, formState, setError } = useForm();
+  const { register, handleSubmit, formState, setError, reset } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
   // 2. Define a submit handler
-  const onSubmit = (data) => {
-    // Log the form data to the console
-    console.log(data);
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    try {
+      // Format the data to match the database table structure
+      const formattedData = {
+        name: data.name,
+        maxcapacity: parseInt(data.maxCapacity),
+        regularprice: parseFloat(data.price),
+        discount: parseFloat(data.discount),
+        description: data.description,
+        image: data.cabinPhoto[0],
+      };
+
+      // Call the function to insert the cabin data into the database
+      await insertCabin(formattedData);
+      // console.log(formattedData);
+
+      // Display a success toast if the data was sent successfully
+      toast.success("Cabin added successfully");
+
+      // Reset the form
+      reset();
+
+      // Refresh the cabins table
+      refreshOnCabinSubmit();
+    } catch (error) {
+      // Display an error toast if there was an error sending the data
+      toast.error("Error adding cabin");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     // 3. Create the form with onSubmit handler
-    <form className="mx-auto max-w-lg " onSubmit={handleSubmit(onSubmit)}>
+    <form className="mx-auto mt-8 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
       {/* Name field */}
       <div className="mb-4">
         <Label htmlFor="name" className="text-base">
@@ -146,38 +182,43 @@ const CabinForm = () => {
         </Label>
         <Input
           {...register("cabinPhoto", {
-            required: "Cabin Photo URL is required",
-            pattern: {
-              value: /^(ftp|http|https):\/\/[^ "]+$/,
-              message: "Invalid URL format",
-            },
+            required: "Cabin Photo is required",
           })}
-          type="text"
+          type="file"
           id="cabinPhoto"
-          placeholder="Enter cabin photo URL"
         />
         {/* Show validation error message */}
         {formState.errors.cabinPhoto && (
           <span className="mt-1 text-sm text-red-600">
-            {formState.errors.cabinPhoto.message}
+            {errors.cabinPhoto.message}
           </span>
         )}
       </div>
 
       {/* Add Cabin and Cancel buttons */}
       <div className="flex justify-end space-x-4">
-        <button
-          type="submit"
-          className="rounded-lg bg-blue-500 px-6 py-2 text-white hover:bg-blue-600"
-        >
-          Add Cabin
-        </button>
-        <button
-          type="button"
-          className="rounded-lg border border-gray-400 px-6 py-2 hover:bg-gray-100"
+        <Button
+          type="reset"
+          variant="outline"
+          className="h-10 border border-gray-400 px-6 py-2 text-gray-600"
         >
           Cancel
-        </button>
+        </Button>
+        {/* set btn to disabled and show spinner and submitting... if state isLoading*/}
+        <Button
+          type="submit"
+          disabled={isLoading}
+          className="bg-green-900 hover:bg-green-700"
+        >
+          {isLoading ? (
+            <>
+              <PiSpinnerBold className="mr-2 h-5 w-5 animate-spin" />
+              <span>Adding...</span>
+            </>
+          ) : (
+            "Add Cabin"
+          )}
+        </Button>
       </div>
     </form>
   );

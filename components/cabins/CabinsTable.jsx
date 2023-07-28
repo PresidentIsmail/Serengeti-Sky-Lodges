@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
-import useSWR from "swr";
 
-import { getAllCabins } from "@/supabase/cabinsApi";
-import  CabinsTableRow  from "./CabinsTableRow";
+import Loading from "@/app/loading";
+import CabinsTableRow from "./CabinsTableRow";
 import {
   Table,
   TableHead,
@@ -14,17 +13,8 @@ import {
   TableHeader,
 } from "@/components/ui/table";
 
-
-const CabinsTable = () => {
-  // fetch the cabins from supabase using SWR
-  const {
-    data: cabins,
-    error,
-    mutate,
-  } = useSWR("/cabins", getAllCabins);
-
-  if (error) return <div>Error loading cabins.</div>;
-  if (!cabins) return <div>Loading...</div>;
+const CabinsTable = ({ cabins, error, mutate }) => {
+  
 
   return (
     <Table className="text-base">
@@ -41,7 +31,7 @@ const CabinsTable = () => {
           <CabinsTableRow
             key={cabin.id}
             cabin={cabin}
-            onCabinDelete={mutate}
+            refreshOnCabinDelete={mutate}
           />
         ))}
       </TableBody>

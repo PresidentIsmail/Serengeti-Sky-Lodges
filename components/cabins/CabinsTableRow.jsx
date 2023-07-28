@@ -13,7 +13,7 @@ import { Button } from "../ui/button";
 
 const placeholderImage = "https://placehold.co/600x400/png";
 
-const CabinsTableRow = ({ cabin, onCabinDelete }) => {
+const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
   const {
     id: cabinId,
     name,
@@ -30,7 +30,7 @@ const handleDeleteCabin = async (cabinId) => {
     try {
       await deleteCabin(cabinId);
       toast.success("Cabin deleted successfully");
-      onCabinDelete();
+      refreshOnCabinDelete();
     } catch (error) {
       console.error(error);
       toast.error("Error deleting cabin");
