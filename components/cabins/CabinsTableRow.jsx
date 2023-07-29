@@ -13,12 +13,6 @@ import { formatCurrency } from "@/utils/helpers";
 // components and icons
 import { HiDotsVertical } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { TableRow, TableCell } from "@/components/ui/table";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";

@@ -1,8 +1,9 @@
 "use client";
 
 // libraries
-import { useState } from "react";
 import { useCabinsFormContext } from "@/context/CabinsFormContext";
+import { useAtom } from "jotai";
+import { filterOptionAtom, sortOptionAtom } from "@/atoms";
 import useSWR from "swr";
 
 // supabase api
@@ -16,11 +17,31 @@ import CabinsTable from "@/components/cabins/CabinsTable";
 import InsertCabinForm from "@/components/forms/InsertCabinForm";
 import UpdateCabinForm from "@/components/forms/UpdateCabinForm";
 import FormModal from "@/components/modals/FormModal";
-import Filter from "@/components/FIlter";
+import Filter from "@/components/Filter";
+import SortBy from "@/components/SortBy";
 
 const Cabins = () => {
   // fetch the cabins from supabase using SWR
   const { data: cabins, error, mutate } = useSWR("/cabins", getAllCabins);
+
+  const [filterOption] = useAtom(filterOptionAtom);
+  const [sortOption] = useAtom(sortOptionAtom);
+
+  // filter the cabins based on the filter option
+  const filteredCabins = cabins?.filter((cabin) => {
+    if (filterOption === "all") return cabin;
+    if (filterOption === "withDiscount") return cabin.discount > 0;
+    if (filterOption === "noDiscount") return cabin.discount === 0;
+  });
+
+  // sort the filtered cabins based on the sort option
+  const sortedCabins = filteredCabins?.sort((a, b) => {
+    if (sortOption === "name-az") return a.name.localeCompare(b.name);
+    if (sortOption === "name-za") return b.name.localeCompare(a.name);
+    if (sortOption === "price-high") return b.regularprice - a.regularprice;
+    if (sortOption === "price-low") return a.regularprice - b.regularprice;
+    if (sortOption === "discount") return b.discount - a.discount;
+  });
 
   // get the state and dispatch function from the cabinsformcontext
   const showInsertCabinForm = useCabinsFormContext().showInsertCabinForm;
@@ -35,13 +56,20 @@ const Cabins = () => {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="mb-8 flex items-baseline justify-between">
-        <Heading as="h1">Cabins</Heading>
-        <Filter />
+      <div className="mb-8 grid grid-cols-1 items-baseline justify-between gap-8">
+        <div>
+          <Heading as="h1">Cabins</Heading>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <Filter />
+
+          <SortBy />
+        </div>
       </div>
 
       {/* table display */}
-      <CabinsTable cabins={cabins} error={error} mutate={mutate} />
+      <CabinsTable cabins={sortedCabins} error={error} mutate={mutate} />
 
       {/* Button to toggle the form */}
       {!showUpdateCabinForm && (

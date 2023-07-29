@@ -1,41 +1,42 @@
-import { useState } from "react";
+import { useAtom } from "jotai";
+import { filterOptionAtom } from "@/atoms";
 
 const Filter = () => {
-  const [activeTab, setActiveTab] = useState("all");
+  const [filterOption, setFilterOption] = useAtom(filterOptionAtom);
 
   const handleTabClick = (tab) => {
-    setActiveTab(tab);
+    setFilterOption(tab);
   };
 
   return (
-    <div className="flex items-center justify-center space-x-4 rounded-lg bg-white p-4 shadow-md">
+    <div className="flex h-10 items-center  justify-center space-x-4 rounded-md bg-white px-3 py-2 text-sm shadow-md">
       <button
         onClick={() => handleTabClick("all")}
         className={`${
-          activeTab === "all"
-            ? "bg-purple-500 text-white"
-            : "bg-transparent text-purple-500 hover:bg-purple-100"
-        } rounded-lg px-4 py-2 transition duration-200 focus:outline-none`}
+          filterOption === "all"
+            ? "bg-black text-white"
+            : "bg-transparent text-black hover:bg-purple-100"
+        } rounded-md px-3 py-1 transition duration-200 focus:outline-none`}
       >
         All
       </button>
       <button
         onClick={() => handleTabClick("withDiscount")}
         className={`${
-          activeTab === "withDiscount"
-            ? "bg-purple-500 text-white"
-            : "bg-transparent text-purple-500 hover:bg-purple-100"
-        } rounded-lg px-4 py-2 transition duration-200 focus:outline-none`}
+          filterOption === "withDiscount"
+            ? "bg-black text-white"
+            : "bg-transparent text-black hover:bg-purple-100"
+        } rounded-md px-3 py-1 transition duration-200 focus:outline-none`}
       >
         With Discount
       </button>
       <button
         onClick={() => handleTabClick("noDiscount")}
         className={`${
-          activeTab === "noDiscount"
-            ? "bg-purple-500 text-white"
-            : "bg-transparent text-purple-500 hover:bg-purple-100"
-        } rounded-lg px-4 py-2 transition duration-200 focus:outline-none`}
+          filterOption === "noDiscount"
+            ? "bg-black text-white"
+            : "bg-transparent text-black hover:bg-purple-100"
+        } rounded-md px-3 py-1 transition duration-200 focus:outline-none`}
       >
         No Discount
       </button>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 4040",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -12,6 +12,7 @@
     "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "@supabase/supabase-js": "^2.31.0",
@@ -23,6 +24,7 @@
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "jotai": "^2.2.2",
+    "lucide-react": "^0.263.1",
     "next": "13.4.12",
     "postcss": "8.4.27",
     "react": "18.2.0",
