@@ -1,20 +1,21 @@
 
+// api functions
+import { getAllBookings } from "@/supabase/bookingsApi";
 
 // components
 import { Table, TableCaption } from "@/components/ui/table";
 import BookingsTableBody from "./BookingsTableBody";
 import BookingsTableHead from "./BookingsTableHead";
 
-
-const BookingsTable = () => {
-  
+const BookingsTable = async () => {
+  const bookings = await getAllBookings();
   return (
     <Table>
-      <TableCaption>A list of your recent bookings.</TableCaption>
-
       <BookingsTableHead />
 
-      <BookingsTableBody />
+     
+        <BookingsTableBody bookings={bookings} />
+   
     </Table>
   );
 };

@@ -54,7 +54,6 @@ const BookingsTableRow = ({ booking }) => {
       </TableCell>
       <TableCell>
         {/* status */}
-
         <StatusBadge>{status}</StatusBadge>
       </TableCell>
       <TableCell className="text-right">{totalPriceFormatted}</TableCell>
@@ -63,49 +62,6 @@ const BookingsTableRow = ({ booking }) => {
 };
 
 // custom bagde design based on status:
-/*
-//   possible status values: unconfirmed, confirmed, checked-in, checked-out, cancelled
-//   possible status colors: gray, blue, green, red, red
-//   possible status text: Unconfirmed, Confirmed, Checked In, Checked Out, Cancelled
-*/
-// const StatusBadge = ({ children }) => {
-//   let color = "";
-//   let text = "";
-//   switch (children.toLowerCase()) {
-//     case "unconfirmed":
-//       color = "gray";
-//       text = "Unconfirmed";
-//       break;
-//     case "confirmed":
-//       color = "blue";
-//       text = "Confirmed";
-//       break;
-//     case "checked-in":
-//       color = "green";
-//       text = "Checked In";
-//       break;
-//     case "checked-out":
-//       color = "red";
-//       text = "Checked Out";
-//       break;
-//     case "cancelled":
-//       color = "red";
-//       text = "Cancelled";
-//       break;
-//     default:
-//       color = "gray";
-//       text = "Unconfirmed";
-//       break;
-//   }
-//   return (
-//     <Badge
-//       className={`bg-${color}-100 text-${color}-800 border border-${color}-200`}
-//     >
-//       {text}
-//     </Badge>
-//   );
-// };
-
 const StatusBadge = ({ children }) => {
   const statusStyles = {
     unconfirmed: {
