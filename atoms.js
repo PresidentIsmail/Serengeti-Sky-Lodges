@@ -10,7 +10,7 @@ export const cabinsSortOptionAtom = atom("name-az");
 export const bookingsFilterOptionAtom = atom("all");
 
 // Atom for sorting options on bookings
-export const bookingsSortOptionAtom = atom("name-az");
+export const bookingsSortOptionAtom = atom("most-recent");
 
 // using jotai to keep state of the context menu
 export const expandedItemIndexAtom = atom(null);
