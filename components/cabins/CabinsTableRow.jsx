@@ -5,17 +5,13 @@ import { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useCabinsFormContext } from "@/context/CabinsFormContext";
-import { useAtom } from "jotai";
-import { showConfirmDeleteModalAtom } from "@/atoms";
 
 // utils and api
 import { deleteCabin } from "@/supabase/cabinsApi";
 import { formatCurrency } from "@/utils/helpers";
 
 // components and icons
-import { CiEdit } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
-import { PiSpinnerBold, PiTrash } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { TableRow, TableCell } from "@/components/ui/table";
@@ -24,7 +20,13 @@ import TableContextMenu from "@/components/cabins/TableContextMenu";
 
 const placeholderImage = "https://placehold.co/600x400/png";
 
-const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
+const CabinsTableRow = ({
+  cabin,
+  refreshOnCabinDelete,
+  index,
+  expandedItemIndex,
+  setExpandedItemIndex,
+}) => {
   const {
     id: cabinId,
     name,
@@ -38,11 +40,15 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
   const setCabins = useCabinsFormContext().setCabins;
   // Local state to manage the display of the ConfirmDeleteModal for each row
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-  const [showContextMenu, setShowContextMenu] = useState(false);
 
-  // function to toggle the display of the context menu
+  const expended = expandedItemIndex === index;
+  // function to toggle the display of one context menu at a time
   const toggleContextMenu = () => {
-    setShowContextMenu((prevState) => !prevState);
+    if (expended) {
+      setExpandedItemIndex(null);
+    } else {
+      setExpandedItemIndex(index);
+    }
   };
 
   // function to toggle the confirm delete modal
@@ -104,7 +110,7 @@ const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
             <HiDotsVertical className="h-6 w-6 text-gray-800 " />
 
             {/* Context Menu */}
-            {showContextMenu && (
+            {expended && (
               <TableContextMenu
                 toggleConfirmDeleteModal={toggleConfirmDeleteModal}
                 toggleUpdateCabinForm={handleEditCabin}

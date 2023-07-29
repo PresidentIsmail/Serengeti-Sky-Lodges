@@ -1,20 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, {  useState } from "react";
 import { useEffect, useRef } from "react";
-import { useAtom } from "jotai";
-import { showConfirmDeleteModalAtom } from "@/atoms";
 import ReactDOM from "react-dom";
 
 const ConfirmDeleteModal = ({ onCancel, onConfirm }) => {
   const modalRef = useRef(null);
-  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useAtom(
-    showConfirmDeleteModalAtom,
-  );
+
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // function to toggle the confirm delete modal
-  const toggleConfirmDeleteModal = useCallback(() => {
-    setShowConfirmDeleteModal((prevState) => !prevState);
-  }, [setShowConfirmDeleteModal]);
 
   // when a click is detected outside the modal, close the form
   // useEffect(() => {
@@ -38,7 +30,6 @@ const ConfirmDeleteModal = ({ onCancel, onConfirm }) => {
     setIsDeleting(true);
     await onConfirm();
     setIsDeleting(false);
-    toggleConfirmDeleteModal();
   };
 
   return ReactDOM.createPortal(
