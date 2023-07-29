@@ -3,7 +3,7 @@
 // libraries
 import { useCabinsFormContext } from "@/context/CabinsFormContext";
 import { useAtom } from "jotai";
-import { filterOptionAtom, sortOptionAtom } from "@/atoms";
+import { cabinsFilterOptionAtom, cabinsSortOptionAtom } from "@/atoms";
 import useSWR from "swr";
 
 // supabase api
@@ -17,15 +17,15 @@ import CabinsTable from "@/components/cabins/CabinsTable";
 import InsertCabinForm from "@/components/forms/InsertCabinForm";
 import UpdateCabinForm from "@/components/forms/UpdateCabinForm";
 import FormModal from "@/components/modals/FormModal";
-import Filter from "@/components/Filter";
-import SortBy from "@/components/SortBy";
+import CabinsFilter from "@/components/cabins/CabinsFilter";
+import CabinsSortBy from "@/components/cabins/CabinsSortBy";
 
 const Cabins = () => {
   // fetch the cabins from supabase using SWR
   const { data: cabins, error, mutate } = useSWR("/cabins", getAllCabins);
 
-  const [filterOption] = useAtom(filterOptionAtom);
-  const [sortOption] = useAtom(sortOptionAtom);
+  const [filterOption] = useAtom(cabinsFilterOptionAtom);
+  const [sortOption] = useAtom(cabinsSortOptionAtom);
 
   // filter the cabins based on the filter option
   const filteredCabins = cabins?.filter((cabin) => {
@@ -62,9 +62,9 @@ const Cabins = () => {
         </div>
 
         <div className="flex items-center justify-between">
-          <Filter />
+          <CabinsFilter />
 
-          <SortBy />
+          <CabinsSortBy />
         </div>
       </div>
 

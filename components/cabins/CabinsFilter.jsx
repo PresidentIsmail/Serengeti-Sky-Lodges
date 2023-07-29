@@ -1,8 +1,8 @@
 import { useAtom } from "jotai";
-import { filterOptionAtom } from "@/atoms";
+import { cabinsFilterOptionAtom } from "@/atoms";
 
-const Filter = () => {
-  const [filterOption, setFilterOption] = useAtom(filterOptionAtom);
+const CabinsFilter = () => {
+  const [filterOption, setFilterOption] = useAtom(cabinsFilterOptionAtom);
 
   const handleTabClick = (tab) => {
     setFilterOption(tab);
@@ -44,4 +44,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default CabinsFilter;

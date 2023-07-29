@@ -1,10 +1,10 @@
 import { atom } from "jotai";
 
 // Atom for filtering
-export const filterOptionAtom = atom("all");
+export const cabinsFilterOptionAtom = atom("all");
 
 // Atom for sorting options
-export const sortOptionAtom = atom("name-az");
+export const cabinsSortOptionAtom = atom("name-az");
 
 // using jotai to keep state of the context menu
 export const expandedItemIndexAtom = atom(null);

@@ -77,7 +77,7 @@ const CabinsTableRow = ({
   return (
     <>
       <TableRow className="h-full align-middle">
-        <TableCell className="font-medium">
+        <TableCell>
           <div className="h-[auto] w-[200px]">
             <AspectRatio ratio={16 / 9}>
               <Image
@@ -90,7 +90,7 @@ const CabinsTableRow = ({
             </AspectRatio>
           </div>
         </TableCell>
-        <TableCell className="font-medium">{name}</TableCell>
+        <TableCell>{name}</TableCell>
         <TableCell>{maxcapacity}</TableCell>
         <TableCell className="font-semibold">
           {formatCurrency(regularprice)}

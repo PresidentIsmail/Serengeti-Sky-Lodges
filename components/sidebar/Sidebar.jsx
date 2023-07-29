@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 
+import { addSampleCabins } from "@/data/data-cabins";
+import { addSampleGuests } from "@/data/data-guests";
+
 import {
   HiOutlineCalendarDays,
   HiOutlineCog6Tooth,
@@ -11,13 +14,32 @@ import {
   HiOutlineUsers,
 } from "react-icons/hi2";
 import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
+import { PiSpinnerGap } from "react-icons/pi";
 
 import logo from "@/public/img/logo-light.png";
 import { SidebarLink } from "./SidebarLink";
 import { SidebarIcon } from "./SidebarIcon";
+import { Button } from "../ui/button";
 
+// sidebar component
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSampleDataAdded, setIsSampleDataAdded] = useState(false);
+
+  // function to add sample data
+  const addSampleData = async () => {
+    try {
+      // await addSampleCabins();
+      // await addSampleGuests();
+      setIsSampleDataAdded(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setTimeout(() => {
+        setIsSampleDataAdded(false);
+      }, 2000);
+    }
+  };
 
   // function to toggle the sidebar
   const toggleSidebar = () => {
@@ -47,7 +69,7 @@ const Sidebar = () => {
       <ul className="mt-8 flex flex-col gap-4">
         <SidebarLink href="/dashboard">
           <SidebarIcon Icon={HiOutlineHome} />
-          <span>Bookings</span>
+          <span>Dashboard</span>
         </SidebarLink>
 
         <SidebarLink href="/bookings">
@@ -70,6 +92,26 @@ const Sidebar = () => {
           <span>Settings</span>
         </SidebarLink>
       </ul>
+
+      {/* btn to add sample data */}
+      <div className={`${isSidebarOpen ? "" : "hidden"} mt-10`}>
+        <Button
+          onClick={addSampleData}
+          disabled={true}
+          className="flex w-full items-center justify-center gap-2"
+        >
+          {isSampleDataAdded ? (
+            <>
+              <PiSpinnerGap className="h-5 w-5 animate-spin" />
+              <span>Sample data added</span>
+            </>
+          ) : (
+            <>
+              <span>Add sample data</span>
+            </>
+          )}
+        </Button>
+      </div>
     </nav>
   );
 };

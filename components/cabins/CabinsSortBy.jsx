@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { sortOptionAtom } from "@/atoms";
+import { cabinsSortOptionAtom } from "@/atoms";
 
 import {
   Select,
@@ -9,8 +9,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const SortBy = () => {
-  const [sortOption, setSortOption] = useAtom(sortOptionAtom);
+const CabinsSortBy = () => {
+  const [sortOption, setSortOption] = useAtom(cabinsSortOptionAtom);
 
   return (
     <Select
@@ -32,4 +32,4 @@ const SortBy = () => {
   );
 };
 
-export default SortBy;
+export default CabinsSortBy;
