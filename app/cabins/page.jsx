@@ -16,6 +16,7 @@ import CabinsTable from "@/components/cabins/CabinsTable";
 import InsertCabinForm from "@/components/forms/InsertCabinForm";
 import UpdateCabinForm from "@/components/forms/UpdateCabinForm";
 import FormModal from "@/components/modals/FormModal";
+import Filter from "@/components/FIlter";
 
 const Cabins = () => {
   // fetch the cabins from supabase using SWR
@@ -36,7 +37,7 @@ const Cabins = () => {
     <div className="flex flex-col gap-8">
       <div className="mb-8 flex items-baseline justify-between">
         <Heading as="h1">Cabins</Heading>
-        <p className="text-xl">Filter/Sort</p>
+        <Filter />
       </div>
 
       {/* table display */}

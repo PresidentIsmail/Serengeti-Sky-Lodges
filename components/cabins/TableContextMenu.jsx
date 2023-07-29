@@ -11,7 +11,7 @@ const TableContextMenu = ({
   toggleUpdateCabinForm,
 }) => {
   return (
-    <div className=" absolute right-10 top-0 overflow-hidden rounded-xl  bg-white shadow-md">
+    <div className=" absolute right-16 top-0 overflow-hidden rounded-xl  bg-white shadow-md">
       <div className="flex cursor-pointer flex-col">
         <>
           <MenuItem onClick={toggleUpdateCabinForm} label="Edit" />

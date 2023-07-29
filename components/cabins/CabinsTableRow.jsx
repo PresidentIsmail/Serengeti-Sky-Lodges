@@ -13,6 +13,12 @@ import { formatCurrency } from "@/utils/helpers";
 // components and icons
 import { HiDotsVertical } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { TableRow, TableCell } from "@/components/ui/table";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
@@ -101,14 +107,15 @@ const CabinsTableRow = ({
 
         {/* Context Menu - displays btns to edit & dlt */}
         <TableCell className="text-right ">
-          {/* icon that will display the menu */}
-          <span className="sr-only">Open options</span>
-          <Button
-            onClick={toggleContextMenu}
-            className="relative mr-4 rounded-full bg-white p-2 hover:bg-gray-100"
-          >
-            <HiDotsVertical className="h-6 w-6 text-gray-800 " />
-
+          <div className="relative">
+            {/* icon that will display the menu */}
+            <span className="sr-only">Open options</span>
+            <Button
+              onClick={toggleContextMenu}
+              className="relative mr-4 rounded-full bg-white p-2 hover:bg-gray-100"
+            >
+              <HiDotsVertical className="h-6 w-6 text-gray-800 " />
+            </Button>
             {/* Context Menu */}
             {expended && (
               <TableContextMenu
@@ -116,7 +123,7 @@ const CabinsTableRow = ({
                 toggleUpdateCabinForm={handleEditCabin}
               />
             )}
-          </Button>
+          </div>
         </TableCell>
       </TableRow>
 
