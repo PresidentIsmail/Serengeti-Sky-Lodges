@@ -12,61 +12,37 @@ import { Table, TableCaption } from "@/components/ui/table";
 import BookingsTableBody from "./BookingsTableBody";
 import BookingsTableHead from "./BookingsTableHead";
 import Pagination from "../Pagination";
-import Loading from "@/app/loading";
 
 const BookingsTable = ({ params }) => {
   // Fetch bookings data
-  const { data: bookings, error } = useSWR("bookings", getAllBookings, {
-    fallback: <Loading />,
-  });
+  const { data: bookings, error } = useSWR("bookings", getAllBookings);
 
-  // Filter and sort options
   const [bookingsFilterOption] = useAtom(bookingsFilterOptionAtom);
   const [bookingsSortOption] = useAtom(bookingsSortOptionAtom);
 
+  // if there is no bookings data, display the loading component
   if (!bookings) return <div>Loading...</div>;
 
-  // filter the bookings based on the filter option
-  const filteredBookings = bookings?.filter((booking) => {
-    if (bookingsFilterOption === "all") return true;
-    if (bookingsFilterOption === "checked-in")
-      return booking.status === "checked-in";
-    if (bookingsFilterOption === "checked-out")
-      return booking.status === "checked-out";
-    if (bookingsFilterOption === "unconfirmed")
-      return booking.status === "unconfirmed";
-    return false; // handle the case when none of the options match
-  });
+  // FILTERING - filter the bookings data
+  const filteredBookings = filterBookings(bookings, bookingsFilterOption);
 
-  /* 
-sample bookings data:
-{id: 1, startdate: '2023-08-01T12:00:00', enddate: '2023-08-08T09:45:36', status: 'checked-in', totalprice: 1080, …}
-*/
+  // SORTING - sort the filtered bookings data
+  const sortedBookings = sortBookings(filteredBookings, bookingsSortOption);
 
-  // sort the bookings based on the sort option
-  const sortedBookings = filteredBookings?.sort((a, b) => {
-    if (bookingsSortOption === "most-recent")
-      return new Date(b.startdate) - new Date(a.startdate);
-    if (bookingsSortOption === "oldest")
-      return new Date(a.startdate) - new Date(b.startdate);
-    if (bookingsSortOption === "amount-high")
-      return b.totalprice - a.totalprice;
-    if (bookingsSortOption === "amount-low") return a.totalprice - b.totalprice;
-    return false; // handle the case when none of the options match
-  });
-
-  // Pagination
+  // PAGINATION 
   const currentPage = params?.page || 1;
   const itemsPerPage = 4;
   // total number of items in your table
-  const totalItems = filteredBookings.length;
+  const totalItemsInTable = filteredBookings.length;
   // Logic to calculate the total number of pages
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.ceil(totalItemsInTable / itemsPerPage);
 
-  // Logic to slice the data based on the current page and items per page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const slicedBookings = sortedBookings.slice(startIndex, endIndex);
+  // slice the bookings data based on the current page and items per page
+  const slicedBookings = sliceBookings(
+    sortedBookings,
+    currentPage,
+    itemsPerPage,
+  );
 
   // if there is an error fetching the data, display the error message
   if (error) return <div>Error loading bookings</div>;
@@ -86,3 +62,29 @@ sample bookings data:
 };
 
 export default BookingsTable;
+
+// Helper function to handle filtering
+function filterBookings(bookings, bookingsFilterOption) {
+  if (bookingsFilterOption === "all") return bookings;
+  return bookings.filter((booking) => booking.status === bookingsFilterOption);
+}
+
+// Helper function to handle sorting
+const sortBookings = (bookings, sortOption) => {
+  return bookings.slice().sort((a, b) => {
+    if (sortOption === "most-recent")
+      return new Date(b.startdate) - new Date(a.startdate);
+    if (sortOption === "oldest")
+      return new Date(a.startdate) - new Date(b.startdate);
+    if (sortOption === "amount-high") return b.totalprice - a.totalprice;
+    if (sortOption === "amount-low") return a.totalprice - b.totalprice;
+    return 0; // Default case
+  });
+};
+
+// Helper function to slice the bookings data based on the current page and items per page
+function sliceBookings(bookings, currentPage, itemsPerPage) {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  return bookings.slice(startIndex, endIndex);
+}
