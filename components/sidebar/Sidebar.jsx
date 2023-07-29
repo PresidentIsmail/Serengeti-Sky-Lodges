@@ -23,7 +23,7 @@ import { Button } from "../ui/button";
 
 // sidebar component
 const Sidebar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSampleDataAdded, setIsSampleDataAdded] = useState(false);
 
   // function to add sample data

@@ -8,31 +8,6 @@ import { formatCurrency } from "@/utils/helpers";
 import { TableCell, TableRow } from "../ui/table";
 import { Badge } from "../ui/badge";
 
-/* 
-sample data:
-{
-  "id": 1,
-  "startdate": "2021-08-01T00:00:00.000Z",
-  "enddate": "2021-08-03T00:00:00.000Z",
-  "status": "confirmed",
-  "totalprice": 1000,
-  "cabinid": {
-    "id": 1,
-    "name": "Cabin 1",
-    "description": "Cabin 1 description",
-    "price": 500,
-    "image": "https://images.unsplash.com/photo-1611174679044-4b0b2d1b0b0b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FiaW58ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
-  },
-  "guestid": {
-    "id": 1,
-    "fullname": "John Doe",
-    "email": "
-  }
-}
-
-
-*/
-
 const BookingsTableRow = ({ booking }) => {
   // Destructure the data
   const { id, startdate, enddate, status, totalprice, cabinid, guestid } =

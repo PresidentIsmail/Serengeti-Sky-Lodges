@@ -1,12 +1,15 @@
+"use client";
 
 import { useAtom } from "jotai";
-import { cabinsFilterOptionAtom } from "@/atoms";
+import { bookingsFilterOptionAtom } from "@/atoms";
 
-const CabinsFilter = () => {
-  const [filterOption, setFilterOption] = useAtom(cabinsFilterOptionAtom);
+const BookingsFilterBy = () => {
+  const [bookingsFilterOption, setBookingsFilterOption] = useAtom(
+    bookingsFilterOptionAtom,
+  );
 
   const handleTabClick = (tab) => {
-    setFilterOption(tab);
+    setBookingsFilterOption(tab);
   };
 
   return (
@@ -14,35 +17,48 @@ const CabinsFilter = () => {
       <button
         onClick={() => handleTabClick("all")}
         className={`${
-          filterOption === "all"
+          bookingsFilterOption === "all"
             ? "bg-black text-white"
             : "bg-transparent text-black hover:bg-purple-100"
         } rounded-md px-3 py-1 transition duration-200 focus:outline-none`}
       >
         All
       </button>
+
       <button
-        onClick={() => handleTabClick("withDiscount")}
+        onClick={() => handleTabClick("checked-out")}
         className={`${
-          filterOption === "withDiscount"
+          bookingsFilterOption === "checked-out"
             ? "bg-black text-white"
             : "bg-transparent text-black hover:bg-purple-100"
         } rounded-md px-3 py-1 transition duration-200 focus:outline-none`}
       >
-        With Discount
+        Checked Out
       </button>
+
       <button
-        onClick={() => handleTabClick("noDiscount")}
+        onClick={() => handleTabClick("checked-in")}
         className={`${
-          filterOption === "noDiscount"
+          bookingsFilterOption === "checked-in"
             ? "bg-black text-white"
             : "bg-transparent text-black hover:bg-purple-100"
         } rounded-md px-3 py-1 transition duration-200 focus:outline-none`}
       >
-        No Discount
+        Checked In
+      </button>
+
+      <button
+        onClick={() => handleTabClick("unconfirmed")}
+        className={`${
+          bookingsFilterOption === "unconfirmed"
+            ? "bg-black text-white"
+            : "bg-transparent text-black hover:bg-purple-100"
+        } rounded-md px-3 py-1 transition duration-200 focus:outline-none`}
+      >
+        Unconfirmed
       </button>
     </div>
   );
 };
 
-export default CabinsFilter;
+export default BookingsFilterBy;
