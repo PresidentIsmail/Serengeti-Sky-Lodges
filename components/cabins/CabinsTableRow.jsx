@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { TableRow, TableCell } from "@/components/ui/table";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
-import TableContextMenu from "@/components/cabins/TableContextMenu";
+import ContextMenu from "@/components/cabins/ContextMenu";
 
 const placeholderImage = "https://placehold.co/600x400/png";
 
@@ -112,7 +112,7 @@ const CabinsTableRow = ({
             </Button>
             {/* Context Menu */}
             {expended && (
-              <TableContextMenu
+              <ContextMenu
                 toggleConfirmDeleteModal={toggleConfirmDeleteModal}
                 toggleUpdateCabinForm={handleEditCabin}
               />

@@ -1,28 +1,23 @@
 import React from "react";
-import { useAtom } from "jotai";
-import { showConfirmDeleteModalAtom } from "@/atoms";
 
 import { PiSpinnerBold, PiTrash } from "react-icons/pi";
 import { CiEdit } from "react-icons/ci";
 import { Button } from "../ui/button";
 
-const TableContextMenu = ({
-  toggleConfirmDeleteModal,
-  toggleUpdateCabinForm,
-}) => {
+const ContextMenu = ({ toggleConfirmDeleteModal, toggleUpdateCabinForm }) => {
   return (
     <div className=" absolute right-16 top-0 overflow-hidden rounded-xl  bg-white shadow-md">
       <div className="flex cursor-pointer flex-col">
         <>
-          <MenuItem onClick={toggleUpdateCabinForm} label="Edit" />
-          <MenuItem onClick={toggleConfirmDeleteModal} label="Delete" />
+          <ContextMenuButton onClick={toggleUpdateCabinForm} label="Edit" />
+          <ContextMenuButton onClick={toggleConfirmDeleteModal} label="Delete" />
         </>
       </div>
     </div>
   );
 };
 
-const MenuItem = ({ onClick, label }) => {
+const ContextMenuButton = ({ onClick, label }) => {
   // convert to lowercase
   label = label.toLowerCase();
   // capitalize first letter
@@ -54,4 +49,4 @@ className="px-4  py-3 grid items-center font-semibold  transition hover:bg-neutr
 </Button>
  */
 
-export default TableContextMenu;
+export default ContextMenu;
