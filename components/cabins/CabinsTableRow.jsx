@@ -12,11 +12,14 @@ import { formatCurrency } from "@/utils/helpers";
 
 // components and icons
 import { HiDotsVertical } from "react-icons/hi";
+import { PiSpinnerBold, PiTrash } from "react-icons/pi";
+import { CiEdit } from "react-icons/ci";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { TableRow, TableCell } from "@/components/ui/table";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
-import ContextMenu from "@/components/cabins/ContextMenu";
+import ContextMenu from "@/components/contextMenu/ContextMenu";
+import ContextMenuButton from "@/components/contextMenu/ContextMenuButton";
 
 const placeholderImage = "https://placehold.co/600x400/png";
 
@@ -112,10 +115,18 @@ const CabinsTableRow = ({
             </Button>
             {/* Context Menu */}
             {expended && (
-              <ContextMenu
-                toggleConfirmDeleteModal={toggleConfirmDeleteModal}
-                toggleUpdateCabinForm={handleEditCabin}
-              />
+              <ContextMenu>
+                <ContextMenuButton onClick={handleEditCabin} label="Edit">
+                  <CiEdit className="mr-2 h-6 w-6" />
+                </ContextMenuButton>
+                <ContextMenuButton
+                  onClick={toggleConfirmDeleteModal}
+                  label="Delete"
+                >
+                  <PiTrash className="mr-2 h-6 w-6" />
+                </ContextMenuButton>
+                {/* You can add more ContextMenuButton components here */}
+              </ContextMenu>
             )}
           </div>
         </TableCell>
