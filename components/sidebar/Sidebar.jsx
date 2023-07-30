@@ -31,8 +31,19 @@ const Sidebar = () => {
 
   useEffect(() => {
     // Set the default active link based on the current page
-    setActiveLink(pathname);
+    setActiveLink(getBasePath(pathname));
   }, [pathname]);
+
+  // Function to extract the base path from the URL
+  function getBasePath(path) {
+    const segments = path.split("/");
+    return `/${segments[1]}`; // Assuming the base path is the second segment
+  }
+
+  // function to toggle the sidebar
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   // function to add sample data
   const addSampleData = async () => {
@@ -49,90 +60,93 @@ const Sidebar = () => {
     }
   };
 
-  // function to toggle the sidebar
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
     <nav
-      className={`${
-        isSidebarOpen ? "" : "w-0"
-      } relative border-r-2 border-r-gray-100 bg-white  px-8 py-12`}
+      className={`relative ${
+        isSidebarOpen ? "" : "p-8"
+      } border-r-2 border-r-gray-100`}
     >
-      {/* toggle button */}
+      {/* sidebar toggle button */}
       <button
         onClick={toggleSidebar}
-        className="absolute right-2 top-6 text-black hover:text-black/70"
+        className="absolute right-2 top-6 z-10 text-black hover:text-black/70"
       >
         <TbLayoutSidebarLeftCollapse
           className={`${isSidebarOpen ? "" : "rotate-180"} h-7 w-7`}
         />
       </button>
+      <div
+        className={`${
+          isSidebarOpen ? "" : "hidden"
+        } relative  bg-white  px-8 py-12`}
+      >
+        {/* logo */}
+        <div className="relative h-32 w-auto">
+          <Image src={logo} alt="logo" fill priority />
+        </div>
 
-      {/* logo */}
-      <div className="relative h-32 w-auto">
-        <Image src={logo} alt="logo" fill priority />
-      </div>
+        {/* links */}
+        <div className="mt-8 flex  flex-col gap-4">
+          <SidebarLink href="/dashboard" active={activeLink === "/dashboard"}>
+            <SidebarIcon
+              Icon={HiOutlineHome}
+              active={activeLink === "/dashboard"}
+            />
+            <span>Dashboard</span>
+          </SidebarLink>
 
-      {/* links */}
-      <div className="mt-8 flex  flex-col gap-4">
-        <SidebarLink href="/dashboard" active={activeLink === "/dashboard"}>
-          <SidebarIcon
-            Icon={HiOutlineHome}
-            active={activeLink === "/dashboard"}
-          />
-          <span>Dashboard</span>
-        </SidebarLink>
+          <SidebarLink href="/bookings" active={activeLink === "/bookings"}>
+            <SidebarIcon
+              Icon={HiOutlineCalendarDays}
+              active={activeLink === "/bookings"}
+            />
+            <span>Bookings</span>
+          </SidebarLink>
 
-        <SidebarLink href="/bookings" active={activeLink === "/bookings"}>
-          <SidebarIcon
-            Icon={HiOutlineCalendarDays}
-            active={activeLink === "/bookings"}
-          />
-          <span>Bookings</span>
-        </SidebarLink>
+          <SidebarLink href="/cabins" active={activeLink === "/cabins"}>
+            <SidebarIcon
+              Icon={HiOutlineHomeModern}
+              active={activeLink === "/cabins"}
+            />
+            <span>Cabins</span>
+          </SidebarLink>
 
-        <SidebarLink href="/cabins" active={activeLink === "/cabins"}>
-          <SidebarIcon
-            Icon={HiOutlineHomeModern}
-            active={activeLink === "/cabins"}
-          />
-          <span>Cabins</span>
-        </SidebarLink>
+          <SidebarLink href="/users" active={activeLink === "/users"}>
+            <SidebarIcon
+              Icon={HiOutlineUsers}
+              active={activeLink === "/users"}
+            />
+            <span>Users</span>
+          </SidebarLink>
 
-        <SidebarLink href="/users" active={activeLink === "/users"}>
-          <SidebarIcon Icon={HiOutlineUsers} active={activeLink === "/users"} />
-          <span>Users</span>
-        </SidebarLink>
+          <SidebarLink href="/settings" active={activeLink === "/settings"}>
+            <SidebarIcon
+              Icon={HiOutlineCog6Tooth}
+              active={activeLink === "/settings"}
+            />
+            <span>Settings</span>
+          </SidebarLink>
+        </div>
 
-        <SidebarLink href="/settings" active={activeLink === "/settings"}>
-          <SidebarIcon
-            Icon={HiOutlineCog6Tooth}
-            active={activeLink === "/settings"}
-          />
-          <span>Settings</span>
-        </SidebarLink>
-      </div>
-
-      {/* btn to add sample data */}
-      <div className={`${isSidebarOpen ? "" : "hidden"} mt-10`}>
-        <Button
-          onClick={addSampleData}
-          disabled={true}
-          className="flex w-full items-center justify-center gap-2"
-        >
-          {isSampleDataAdded ? (
-            <>
-              <PiSpinnerGap className="h-5 w-5 animate-spin" />
-              <span>Sample data added</span>
-            </>
-          ) : (
-            <>
-              <span>Add sample data</span>
-            </>
-          )}
-        </Button>
+        {/* btn to add sample data */}
+        <div className={`${isSidebarOpen ? "" : "hidden"} mt-10`}>
+          <Button
+            onClick={addSampleData}
+            disabled={true}
+            className="flex w-full items-center justify-center gap-2"
+          >
+            {isSampleDataAdded ? (
+              <>
+                <PiSpinnerGap className="h-5 w-5 animate-spin" />
+                <span>Sample data added</span>
+              </>
+            ) : (
+              <>
+                <span>Add sample data</span>
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </nav>
   );
