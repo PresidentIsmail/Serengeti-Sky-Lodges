@@ -11,7 +11,6 @@ import { deleteCabin } from "@/supabase/cabinsApi";
 import { formatCurrency } from "@/utils/helpers";
 
 // components and icons
-import { HiDotsVertical } from "react-icons/hi";
 import { PiSpinnerBold, PiTrash } from "react-icons/pi";
 import { CiEdit } from "react-icons/ci";
 import { Button } from "@/components/ui/button";
@@ -26,9 +25,6 @@ const placeholderImage = "https://placehold.co/600x400/png";
 const CabinsTableRow = ({
   cabin,
   refreshOnCabinDelete,
-  index,
-  expandedItemIndex,
-  setExpandedItemIndex,
 }) => {
   const {
     id: cabinId,
@@ -44,16 +40,7 @@ const CabinsTableRow = ({
   // Local state to manage the display of the ConfirmDeleteModal for each row
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
 
-  const expended = expandedItemIndex === index;
-  // function to toggle the display of one context menu at a time
-  const toggleContextMenu = () => {
-    if (expended) {
-      setExpandedItemIndex(null);
-    } else {
-      setExpandedItemIndex(index);
-    }
-  };
-
+ 
   // function to toggle the confirm delete modal
   const toggleConfirmDeleteModal = () => {
     setShowConfirmDeleteModal((prevState) => !prevState);
@@ -104,31 +91,18 @@ const CabinsTableRow = ({
 
         {/* Context Menu - displays btns to edit & dlt */}
         <TableCell className="text-right ">
-          <div className="relative">
-            {/* icon that will display the menu */}
-            <span className="sr-only">Open options</span>
-            <Button
-              onClick={toggleContextMenu}
-              className="relative mr-4 rounded-full bg-white p-2 hover:bg-gray-100"
+          <ContextMenu>
+            <ContextMenuButton onClick={handleEditCabin} label="Edit">
+              <CiEdit className="mr-2 h-6 w-6" />
+            </ContextMenuButton>
+
+            <ContextMenuButton
+              onClick={toggleConfirmDeleteModal}
+              label="Delete"
             >
-              <HiDotsVertical className="h-6 w-6 text-gray-800 " />
-            </Button>
-            {/* Context Menu */}
-            {expended && (
-              <ContextMenu>
-                <ContextMenuButton onClick={handleEditCabin} label="Edit">
-                  <CiEdit className="mr-2 h-6 w-6" />
-                </ContextMenuButton>
-                <ContextMenuButton
-                  onClick={toggleConfirmDeleteModal}
-                  label="Delete"
-                >
-                  <PiTrash className="mr-2 h-6 w-6" />
-                </ContextMenuButton>
-                {/* You can add more ContextMenuButton components here */}
-              </ContextMenu>
-            )}
-          </div>
+              <PiTrash className="mr-2 h-6 w-6" />
+            </ContextMenuButton>
+          </ContextMenu>
         </TableCell>
       </TableRow>
 
