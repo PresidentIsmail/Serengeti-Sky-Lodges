@@ -1,5 +1,6 @@
 // Libs
 import { format, differenceInDays } from "date-fns";
+import Link from "next/link";
 
 // helpers
 import { formatCurrency } from "@/utils/helpers";
@@ -64,12 +65,11 @@ const BookingsTableRow = ({ booking }) => {
       {/* context menu to view booking details */}
       <TableCell>
         <ContextMenu>
-          <ContextMenuButton
-            onClick={() => console.log("View booking details")}
-            label="View details"
-          >
-            <LuEye className="h-6 w-6 text-gray-800 " />
-          </ContextMenuButton>
+          <Link href={`bookings/${id}`}>
+            <ContextMenuButton label="View details">
+              <LuEye className="h-6 w-6 text-gray-800 " />
+            </ContextMenuButton>
+          </Link>
         </ContextMenu>
       </TableCell>
     </TableRow>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 import { addSampleCabins } from "@/data/data-cabins";
@@ -23,8 +24,15 @@ import { Button } from "../ui/button";
 
 // sidebar component
 const Sidebar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const pathname = usePathname();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isSampleDataAdded, setIsSampleDataAdded] = useState(false);
+  const [activeLink, setActiveLink] = useState("");
+
+  useEffect(() => {
+    // Set the default active link based on the current page
+    setActiveLink(pathname);
+  }, [pathname]);
 
   // function to add sample data
   const addSampleData = async () => {
@@ -49,7 +57,7 @@ const Sidebar = () => {
   return (
     <nav
       className={`${
-        isSidebarOpen ? "w-1/3" : "w-0"
+        isSidebarOpen ? "" : "w-0"
       } relative border-r-2 border-r-gray-100 bg-white  px-8 py-12`}
     >
       {/* toggle button */}
@@ -63,35 +71,49 @@ const Sidebar = () => {
       </button>
 
       {/* logo */}
-      <Image src={logo} alt="logo" priority />
+      <div className="relative h-32 w-auto">
+        <Image src={logo} alt="logo" fill priority />
+      </div>
 
       {/* links */}
-      <ul className="mt-8 flex flex-col gap-4">
-        <SidebarLink href="/dashboard">
-          <SidebarIcon Icon={HiOutlineHome} />
+      <div className="mt-8 flex  flex-col gap-4">
+        <SidebarLink href="/dashboard" active={activeLink === "/dashboard"}>
+          <SidebarIcon
+            Icon={HiOutlineHome}
+            active={activeLink === "/dashboard"}
+          />
           <span>Dashboard</span>
         </SidebarLink>
 
-        <SidebarLink href="/bookings">
-          <SidebarIcon Icon={HiOutlineCalendarDays} />
+        <SidebarLink href="/bookings" active={activeLink === "/bookings"}>
+          <SidebarIcon
+            Icon={HiOutlineCalendarDays}
+            active={activeLink === "/bookings"}
+          />
           <span>Bookings</span>
         </SidebarLink>
 
-        <SidebarLink href="/cabins">
-          <SidebarIcon Icon={HiOutlineHomeModern} />
+        <SidebarLink href="/cabins" active={activeLink === "/cabins"}>
+          <SidebarIcon
+            Icon={HiOutlineHomeModern}
+            active={activeLink === "/cabins"}
+          />
           <span>Cabins</span>
         </SidebarLink>
 
-        <SidebarLink href="/users">
-          <SidebarIcon Icon={HiOutlineUsers} />
+        <SidebarLink href="/users" active={activeLink === "/users"}>
+          <SidebarIcon Icon={HiOutlineUsers} active={activeLink === "/users"} />
           <span>Users</span>
         </SidebarLink>
 
-        <SidebarLink href="/settings">
-          <SidebarIcon Icon={HiOutlineCog6Tooth} />
+        <SidebarLink href="/settings" active={activeLink === "/settings"}>
+          <SidebarIcon
+            Icon={HiOutlineCog6Tooth}
+            active={activeLink === "/settings"}
+          />
           <span>Settings</span>
         </SidebarLink>
-      </ul>
+      </div>
 
       {/* btn to add sample data */}
       <div className={`${isSidebarOpen ? "" : "hidden"} mt-10`}>

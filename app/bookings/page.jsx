@@ -10,7 +10,7 @@ const Bookings = ({ searchParams }) => {
   const params = searchParams;
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="mx-auto flex max-w-7xl flex-col gap-8">
       <div className="mb-8 grid grid-cols-1 items-baseline justify-between gap-8">
         <div>
           <Heading as="h1">Bookings</Heading>

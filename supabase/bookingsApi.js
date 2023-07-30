@@ -28,3 +28,27 @@ export async function getAllBookings() {
 
   return bookings;
 }
+
+/* 
+get all the data for a specific booking. include all the data for the cabin and the guest
+*/
+export async function getBookingDataById(bookingId) {
+  const table = "bookings"; // Replace "bookings" with your actual table name
+
+  let { data: bookings, error } = await supabase
+    .from(table)
+    .select(
+      `
+      *,
+      cabinid (*),
+      guestid (*)
+    `,
+    )
+    .eq("id", bookingId);
+
+  if (error) {
+    throw error;
+  }
+
+  return bookings;
+}

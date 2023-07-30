@@ -5,7 +5,7 @@ import BookingsTableRow from "./BookingsTableRow";
 const BookingsTableBody = ({ bookings }) => {
   return (
     <>
-      <TableBody>
+      <TableBody className="">
         {bookings.map((booking) => (
           <BookingsTableRow key={booking.id} booking={booking} />
         ))}

@@ -29,7 +29,7 @@ const BookingsTable = ({ params }) => {
   // SORTING - sort the filtered bookings data
   const sortedBookings = sortBookings(filteredBookings, bookingsSortOption);
 
-  // PAGINATION 
+  // PAGINATION
   const currentPage = params?.page || 1;
   const itemsPerPage = 4;
   // total number of items in your table
@@ -49,7 +49,7 @@ const BookingsTable = ({ params }) => {
 
   return (
     <>
-      <Table>
+      <Table className=" rounded-xl  bg-white p-4 shadow-md">
         <BookingsTableHead />
         {/* Pass the sliced bookings data to BookingsTableBody */}
         <BookingsTableBody bookings={slicedBookings} />
