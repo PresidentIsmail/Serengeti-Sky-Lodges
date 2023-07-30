@@ -3,8 +3,8 @@
 // Components
 import Heading from "@/components/ui/Heading";
 import BookingsTable from "@/components/bookings/BookingsTable";
-import BookingsSortBy from "@/components/bookings/BookingsSortBy";
 import BookingsFilterBy from "@/components/bookings/BookingsFilterBy";
+import BookingSortByComponentWithNoSSR from "@/components/bookings/BookingSortByComponentWithNoSSR ";
 
 const Bookings = ({ searchParams }) => {
   const params = searchParams;
@@ -17,7 +17,7 @@ const Bookings = ({ searchParams }) => {
         </div>
         <div className="flex items-center justify-between">
           <BookingsFilterBy />
-          <BookingsSortBy />
+          <BookingSortByComponentWithNoSSR />
         </div>
       </div>
 
