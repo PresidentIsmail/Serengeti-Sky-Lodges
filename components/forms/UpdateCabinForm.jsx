@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 // function that will insert a new cabin into the database
-import { insertCabin, updateCabin } from "@/supabase/cabinsApi";
+import { updateCabin } from "@/supabase/cabinsApi";
 
 // components
 import { TfiClose } from "react-icons/tfi";
@@ -27,11 +27,8 @@ const UpdateCabinForm = ({ refreshOnCabinSubmit }) => {
   // 1. Initialize the useForm hook and get form methods and state
   const { register, handleSubmit, formState, setError, reset } = useForm({
     defaultValues: {
-      name: cabinsFromContext.name,
-      maxCapacity: cabinsFromContext.maxcapacity,
+      ...cabinsFromContext,
       price: cabinsFromContext.regularprice,
-      discount: cabinsFromContext.discount,
-      description: cabinsFromContext.description,
     },
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +40,7 @@ const UpdateCabinForm = ({ refreshOnCabinSubmit }) => {
       // Format the data to match the database table structure
       const formattedData = {
         name: data.name,
-        maxcapacity: parseInt(data.maxCapacity),
+        maxcapacity: parseInt(data.maxcapacity),
         regularprice: parseFloat(data.price),
         discount: parseFloat(data.discount),
         description: data.description,
@@ -109,11 +106,11 @@ const UpdateCabinForm = ({ refreshOnCabinSubmit }) => {
         </div>
         {/* Maximum Capacity field */}
         <div className="mb-4 grid gap-2">
-          <Label htmlFor="maxCapacity" className="text-base font-semibold">
+          <Label htmlFor="maxcapacity" className="text-base font-semibold">
             Maximum Capacity
           </Label>
           <Input
-            {...register("maxCapacity", {
+            {...register("maxcapacity", {
               required: "Maximum Capacity is required",
               pattern: {
                 value: /^[0-9]+$/,
@@ -121,14 +118,14 @@ const UpdateCabinForm = ({ refreshOnCabinSubmit }) => {
               },
             })}
             type="text"
-            id="maxCapacity"
+            id="maxcapacity"
             placeholder="Enter maximum capacity"
             className="h-14 text-base placeholder:text-gray-400"
           />
           {/* Show validation error message */}
-          {formState.errors.maxCapacity && (
+          {formState.errors.maxcapacity && (
             <span className="mt-1 text-sm text-red-600">
-              {formState.errors.maxCapacity.message}
+              {formState.errors.maxcapacity.message}
             </span>
           )}
         </div>
