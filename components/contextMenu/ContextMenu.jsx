@@ -43,7 +43,7 @@ const ContextMenu = ({ children }) => {
       </Button>
       {/* Context Menu */}
       {showContextMenu && (
-        <div className="absolute right-16 top-0 overflow-hidden rounded-xl bg-white shadow-md">
+        <div className="absolute right-16 top-0 min-w-max  rounded-xl bg-white shadow-md">
           <div className="flex cursor-pointer flex-col">{children}</div>
         </div>
       )}

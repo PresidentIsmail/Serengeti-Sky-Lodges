@@ -11,9 +11,8 @@ import { deleteCabin } from "@/supabase/cabinsApi";
 import { formatCurrency } from "@/utils/helpers";
 
 // components and icons
-import { PiSpinnerBold, PiTrash } from "react-icons/pi";
+import { PiTrash } from "react-icons/pi";
 import { CiEdit } from "react-icons/ci";
-import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { TableRow, TableCell } from "@/components/ui/table";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
@@ -22,10 +21,7 @@ import ContextMenuButton from "@/components/contextMenu/ContextMenuButton";
 
 const placeholderImage = "https://placehold.co/600x400/png";
 
-const CabinsTableRow = ({
-  cabin,
-  refreshOnCabinDelete,
-}) => {
+const CabinsTableRow = ({ cabin, refreshOnCabinDelete }) => {
   const {
     id: cabinId,
     name,
@@ -40,7 +36,6 @@ const CabinsTableRow = ({
   // Local state to manage the display of the ConfirmDeleteModal for each row
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
 
- 
   // function to toggle the confirm delete modal
   const toggleConfirmDeleteModal = () => {
     setShowConfirmDeleteModal((prevState) => !prevState);

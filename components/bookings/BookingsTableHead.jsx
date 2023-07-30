@@ -10,6 +10,7 @@ const BookingsTableHead = () => {
         <TableHead>Check Out</TableHead>
         <TableHead>Status</TableHead>
         <TableHead className="text-right">Amount</TableHead>
+        <TableHead></TableHead>
       </TableRow>
     </TableHeader>
   );
