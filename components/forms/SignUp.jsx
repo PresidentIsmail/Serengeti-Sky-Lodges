@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 // api
-import { loginUser } from "@/supabase/authApi";
+import { signUpUser } from "@/supabase/authApi";
 
 // components and icons
 import { PiSpinnerBold } from "react-icons/pi";
@@ -36,12 +36,25 @@ const SignUp = () => {
       },
     });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
 
-  // function to create/sign up a user in
-  async function onSubmit(data) {
-    console.log("form data", data);
-  }
+    // function to create/sign up a user
+    async function onSubmit(data) {
+      try {
+        setIsSubmitting(true); // Set submitting state to true to show loading spinner
+        await signUpUser({
+          fullName: data.fullname,
+          email: data.email,
+          password: data.password,
+        });
+        setIsSubmitting(false); // Set submitting state to false after sign up is successful
+        toast.success("User created successfully");
+        reset(); // Reset the form after successful sign up
+      } catch (error) {
+        setIsSubmitting(false); // Set submitting state to false if there's an error during sign up
+        toast.error("An error occurred during sign up");
+        console.error(error);
+      }
+    }
 
   return (
     <Card className="w-full max-w-lg shadow-md">
