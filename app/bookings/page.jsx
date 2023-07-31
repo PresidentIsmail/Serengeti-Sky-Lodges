@@ -6,7 +6,7 @@ import BookingsTable from "@/components/bookings/BookingsTable";
 import BookingsFilterBy from "@/components/bookings/BookingsFilterBy";
 import BookingSortByComponentWithNoSSR from "@/components/bookings/BookingSortByComponentWithNoSSR ";
 
-const Bookings = ({ params }) => {
+const Bookings = ({  searchParams }) => {
 
 
   return (
@@ -21,7 +21,7 @@ const Bookings = ({ params }) => {
         </div>
       </div>
 
-      <BookingsTable params={params} />
+      <BookingsTable page={searchParams.page} />
     </div>
   );
 };

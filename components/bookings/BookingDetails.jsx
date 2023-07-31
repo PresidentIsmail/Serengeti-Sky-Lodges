@@ -240,7 +240,7 @@ const BookingDetails = ({ bookingId, page }) => {
             </div>
             <div className="flex items-center space-x-2">
               <FiEdit className="h-6 w-6 text-green-500" />
-              <p className="text-gray-600">
+              <div className="text-gray-600">
                 Payment Status:{" "}
                 {ispaid ? (
                   <Badge className="border-green-600 bg-green-100 text-green-600">
@@ -251,7 +251,7 @@ const BookingDetails = ({ bookingId, page }) => {
                     Not Paid
                   </Badge>
                 )}
-              </p>
+              </div>
             </div>
           </div>
         </div>

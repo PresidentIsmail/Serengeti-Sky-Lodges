@@ -12,10 +12,6 @@ const page = ({ searchParams, params }) => {
   return (
     <>
       <header className="mb-8 flex  items-start justify-between gap-y-8">
-        <h1 className="text-3xl font-bold tracking-wide lg:text-4xl xl:text-5xl">
-          Booking #{id}
-        </h1>
-
         <Button
           asChild
           variant="link"
@@ -26,6 +22,10 @@ const page = ({ searchParams, params }) => {
             <span className="text-base text-blue-500">Back to Bookings</span>
           </Link>
         </Button>
+        <h1 className="text-3xl font-bold tracking-wide lg:text-4xl xl:text-5xl">
+          Booking #{id}
+        </h1>
+
       </header>
       <BookingDetails bookingId={id} page={page} />
     </>
