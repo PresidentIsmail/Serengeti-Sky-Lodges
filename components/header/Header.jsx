@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
 // third-party
+import { useRouter } from 'next/navigation'
 import { toast } from "react-hot-toast";
 
 // api
@@ -12,10 +13,12 @@ import Heading from "../ui/Heading";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
+  const router = useRouter();
   const handleLogout = async () => {
     try {
       await logoutUser();
       toast.success("Logged out successfully");
+      router.push("/login");
     } catch (error) {
       toast.error(error.message);
     }
@@ -31,12 +34,11 @@ const Header = () => {
   );
 };
 
-
 const LogoutButton = ({ handleLogout }) => {
   return (
     <Button
       onClick={handleLogout}
-      className="flex items-center space-x-2 px-4 py-2 bg-gray-200 rounded-full text-gray-600 hover:bg-gray-300 transition duration-200"
+      className="flex items-center space-x-2 rounded-full bg-gray-200 px-4 py-2 text-gray-600 transition duration-200 hover:bg-gray-300"
     >
       <IoLogOutOutline className="text-xl" />
       <span>Logout</span>

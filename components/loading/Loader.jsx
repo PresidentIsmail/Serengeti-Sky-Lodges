@@ -1,6 +1,6 @@
 const Loader = () => {
   return (
-    <div className="flex-col items-center justify-start gap-2">
+    <div className="flex-col items-center h-full justify-start gap-2">
       {/* create an array of 10  */}
       {Array.from({ length: 10 }, (_, i) => i + 1).map((_, i) => (
         <div key={i} className="mt-4 flex gap-2">

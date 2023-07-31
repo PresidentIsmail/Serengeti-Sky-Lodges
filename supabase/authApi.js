@@ -1,11 +1,10 @@
-// using a different client for auth
-// This code loads the Supabase client and sets up authentication.
-
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"; 
+/* using a different client for auth
+  This code loads the Supabase client and sets up authentication.
+  the session from logging in will be saved in the cache
+  */
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const supabase = createClientComponentClient();
-
-
 
 // login function that will handle user login using email and password
 export async function loginUser({ email, password }) {
