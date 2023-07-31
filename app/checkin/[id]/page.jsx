@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { BiArrowBack } from "react-icons/bi";
 import BookingDetails from "@/components/bookings/BookingDetails";
 import { Button } from "@/components/ui/button";
+import Loader from "@/components/loading/Loader";
 
 const Checkin = ({ searchParams, params }) => {
   const id = params.id; // get the booking id from the url
@@ -25,7 +27,10 @@ const Checkin = ({ searchParams, params }) => {
           Check In Booking #{id}
         </h1>
       </header>
-      <BookingDetails bookingId={id} page={page} />
+
+      <Suspense fallback={<Loader />}>
+        <BookingDetails bookingId={id} page={page} />
+      </Suspense>
     </>
   );
 };

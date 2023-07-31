@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const CreateAccount = () => {
+const LoginForm = ({title, description}) => {
   // 1. Initialize the useForm hook and get form methods and state
   const { register, handleSubmit, formState, setError, reset } = useForm();
 
@@ -93,4 +93,4 @@ const CreateAccount = () => {
   );
 };
 
-export default CreateAccount;
+export default LoginForm;

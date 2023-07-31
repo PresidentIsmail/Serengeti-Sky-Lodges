@@ -19,10 +19,17 @@ import UpdateCabinForm from "@/components/forms/UpdateCabinForm";
 import FormModal from "@/components/modals/FormModal";
 import CabinsFilter from "@/components/cabins/CabinsFilter";
 import CabinsSortBy from "@/components/cabins/CabinsSortBy";
+import Loader from "@/components/loading/Loader";
 
 const Cabins = () => {
   // fetch the cabins from supabase using SWR
-  const { data: cabins, error, mutate } = useSWR("/cabins", getAllCabins);
+  const {
+    data: cabins,
+    error,
+    mutate,
+  } = useSWR("/cabins", getAllCabins, {
+    fallback: <Loader />,
+  });
 
   const [filterOption] = useAtom(cabinsFilterOptionAtom);
   const [sortOption] = useAtom(cabinsSortOptionAtom);
