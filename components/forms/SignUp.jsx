@@ -26,28 +26,33 @@ import { Label } from "@/components/ui/label";
 
 const SignUp = () => {
   // 1. Initialize the useForm hook and get form methods and state
-  const { register, handleSubmit, formState, setError, reset } = useForm({
-    defaultValues: {
-      email: "dev@email.com",
-      password: "developer",
-    },
-  });
+  const { register, handleSubmit, formState, setError, reset, getValues } =
+    useForm({
+      defaultValues: {
+        fullname: "Bad Bunny",
+        email: "badbunny@email.com",
+        password: "heaven",
+        confirmPassword: "heaven",
+      },
+    });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
   // function to create/sign up a user in
-  async function onSubmit(data) {}
+  async function onSubmit(data) {
+    console.log("form data", data);
+  }
 
   return (
-    <Card className="w-full max-w-lg">
+    <Card className="w-full max-w-lg shadow-md">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Create a new user</CardTitle>
         <CardDescription>
           Fill in the form below to create a new user
         </CardDescription>
       </CardHeader>
-      <CardContent >
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4" >
+      <CardContent>
+        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
           {/* full name */}
           <div className="grid grid-cols-3 items-center gap-2">
             <Label htmlFor="fullname" className="text-base font-semibold ">
@@ -56,19 +61,20 @@ const SignUp = () => {
             <Input
               {...register("fullname", {
                 required: "Fullname is required",
+                // must be a first name and last name and if there is a middle name, it must be separated by a space
                 pattern: {
-                  value: /^[a-zA-Z]+ [a-zA-Z]+$/,
-                  message: "Please enter your first and last name",
+                  value: /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
+                  message: "Please enter your full name",
                 },
               })}
               type="fullname"
               id="fullname"
               placeholder="John Snow"
-              className="h-14 text-base placeholder:text-gray-400 col-span-2"
+              className="col-span-2 h-14 text-base placeholder:text-gray-400"
             />
             {/* Show validation error message */}
             {formState.errors.fullname && (
-              <span className="mt-1 text-sm text-red-600">
+              <span className="col-span-2 col-start-2 mt-1 text-sm text-red-600">
                 {formState.errors.fullname.message}
               </span>
             )}
@@ -90,11 +96,11 @@ const SignUp = () => {
               type="email"
               id="email"
               placeholder="m@example.com"
-              className="h-14 text-base placeholder:text-gray-400 col-span-2"
+              className="col-span-2 h-14 text-base placeholder:text-gray-400"
             />
             {/* Show validation error message */}
             {formState.errors.email && (
-              <span className="mt-1 text-sm text-red-600">
+              <span className="col-span-2 col-start-2 mt-1 text-sm text-red-600">
                 {formState.errors.email.message}
               </span>
             )}
@@ -116,15 +122,43 @@ const SignUp = () => {
               type="password"
               id="password"
               placeholder="enter your password"
-              className="h-14 text-base tracking-widest placeholder:tracking-normal placeholder:text-gray-400 col-span-2"
+              className="col-span-2 h-14 text-base tracking-widest placeholder:tracking-normal placeholder:text-gray-400"
             />
             {/* Show validation error message */}
             {formState.errors.password && (
-              <span className="mt-1 text-sm text-red-600">
+              <span className="col-span-2 col-start-2 mt-1 text-sm text-red-600">
                 {formState.errors.password.message}
               </span>
             )}
           </div>
+
+          {/* confirm password */}
+          <div className="grid grid-cols-3 items-center gap-2">
+            <Label
+              htmlFor="confirmPassword"
+              className="text-base font-semibold"
+            >
+              Confirm Password
+            </Label>
+            <Input
+              {...register("confirmPassword", {
+                required: "Please confirm your password",
+                validate: (value) =>
+                  value === getValues("password") || "Passwords do not match",
+              })}
+              type="password"
+              id="confirmPassword"
+              placeholder="enter your password again"
+              className="col-span-2 h-14 text-base tracking-widest placeholder:tracking-normal placeholder:text-gray-400"
+            />
+            {/* Show validation error message */}
+            {formState.errors.confirmPassword && (
+              <span className="col-span-2 col-start-2 mt-1  text-sm text-red-600">
+                {formState.errors.confirmPassword.message}
+              </span>
+            )}
+          </div>
+
           {/* create btn */}
           <Button disabled={isSubmitting} type="submit" className="mt-8 w-full">
             {isSubmitting ? (
