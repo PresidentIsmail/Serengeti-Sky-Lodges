@@ -1,6 +1,16 @@
 "use client";
-import { useForm } from "react-hook-form";
 
+// third party
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
+
+// api
+import { loginUser } from "@/supabase/authApi";
+
+// components and icons
+import { PiSpinnerBold } from "react-icons/pi";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,13 +24,37 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const LoginForm = ({ title, description }) => {
+const LoginForm = () => {
   // 1. Initialize the useForm hook and get form methods and state
-  const { register, handleSubmit, formState, setError, reset } = useForm();
+  const { register, handleSubmit, formState, setError, reset } = useForm({
+    defaultValues: {
+      email: "dev@email.com",
+      password: "developer",
+    },
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
-  const onSubmit = (data) => {
-    console.log(data); // You can handle the form data here
-  };
+  // function to log user in
+  async function onSubmit(data) {
+    setIsSubmitting(true);
+    try {
+      const user = await loginUser({
+        email: data.email,
+        password: data.password,
+      });
+      toast.success("Logged in successfully");
+      reset();
+      router.push("/dashboard");
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error);
+      reset();
+    } finally {
+      setIsSubmitting(false);
+    }
+    console.log("i got here before redirecting")
+  }
 
   return (
     <Card className="w-full max-w-md">
@@ -31,62 +65,70 @@ const LoginForm = ({ title, description }) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
-        {/* email */}
-        <div className="grid gap-2">
-          <Label htmlFor="email" className="text-[14px] ">
-            Email
-          </Label>
-          <Input
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: "Entered value does not match email format",
-              },
-            })}
-            type="email"
-            id="email"
-            placeholder="m@example.com"
-            className="h-14 text-base placeholder:text-gray-400"
-          />
-          {/* Show validation error message */}
-          {formState.errors.email && (
-            <span className="mt-1 text-sm text-red-600">
-              {formState.errors.email.message}
-            </span>
-          )}
-        </div>
-        {/* password */}
-        <div className="grid gap-2">
-          <Label htmlFor="password" className="text-[14px]">
-            Password
-          </Label>
-          <Input
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 4,
-                message: "Password must have at least 4 characters",
-              },
-            })}
-            type="password"
-            id="password"
-            placeholder="enter your password"
-            className="h-14 text-base tracking-widest placeholder:tracking-normal placeholder:text-gray-400"
-          />
-          {/* Show validation error message */}
-          {formState.errors.password && (
-            <span className="mt-1 text-sm text-red-600">
-              {formState.errors.password.message}
-            </span>
-          )}
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* email */}
+          <div className="grid gap-2">
+            <Label htmlFor="email" className="text-[14px] ">
+              Email
+            </Label>
+            <Input
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "Entered value does not match email format",
+                },
+              })}
+              type="email"
+              id="email"
+              placeholder="m@example.com"
+              className="h-14 text-base placeholder:text-gray-400"
+            />
+            {/* Show validation error message */}
+            {formState.errors.email && (
+              <span className="mt-1 text-sm text-red-600">
+                {formState.errors.email.message}
+              </span>
+            )}
+          </div>
+          {/* password */}
+          <div className="grid gap-2">
+            <Label htmlFor="password" className="text-[14px]">
+              Password
+            </Label>
+            <Input
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must have at least 6 characters",
+                },
+              })}
+              type="password"
+              id="password"
+              placeholder="enter your password"
+              className="h-14 text-base tracking-widest placeholder:tracking-normal placeholder:text-gray-400"
+            />
+            {/* Show validation error message */}
+            {formState.errors.password && (
+              <span className="mt-1 text-sm text-red-600">
+                {formState.errors.password.message}
+              </span>
+            )}
+          </div>
+          {/* Log in btn */}
+          <Button disabled={isSubmitting} type="submit" className="mt-8 w-full">
+            {isSubmitting ? (
+              <>
+                <PiSpinnerBold className="animate-spin" />
+                <span className="ml-2">Logging in...</span>
+              </>
+            ) : (
+              "Log in"
+            )}
+          </Button>
+        </form>
       </CardContent>
-      <CardFooter>
-        <Button onClick={handleSubmit(onSubmit)} className="w-full">
-          Create account
-        </Button>
-      </CardFooter>
     </Card>
   );
 };
