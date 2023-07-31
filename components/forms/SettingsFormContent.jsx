@@ -169,12 +169,12 @@ const SettingsFormContent = ({ settings }) => {
         </div>
 
         {/* Save and Cancel buttons */}
-        <div className="mt-8 flex w-full justify-center ">
+        <div className="mt-8 flex w-full justify-start lg:justify-center ">
           {/* set btn to disabled and show spinner and submitting... if state isLoading*/}
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-1/3 bg-violet-500 text-base font-semibold  hover:bg-violet-500/80"
+            className="w-max bg-violet-500 text-base font-semibold  hover:bg-violet-500/80"
           >
             {isLoading ? (
               <>

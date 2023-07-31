@@ -10,7 +10,6 @@ import useSWR from "swr";
 import { getAllCabins } from "@/supabase/cabinsApi";
 
 // components
-import Loading from "../loading";
 import Heading from "@/components/ui/Heading";
 import { Button } from "@/components/ui/button";
 import CabinsTable from "@/components/cabins/CabinsTable";
@@ -59,7 +58,7 @@ const Cabins = () => {
   // if there is an error fetching the data, display the error message
   if (error) return <div>Error loading cabins</div>;
 
-  if (!cabins) return <Loading />;
+  if (!cabins) return <Loader />;
 
   return (
     <div className="flex flex-col gap-8">
