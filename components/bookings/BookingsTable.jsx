@@ -14,7 +14,7 @@ import BookingsTableHead from "./BookingsTableHead";
 import Pagination from "./Pagination";
 import Loader from "../loading/Loader";
 
-const BookingsTable = ({ params }) => {
+const BookingsTable = ({ page }) => {
   // Fetch bookings data
   const { data: bookings, error } = useSWR("bookings", getAllBookings);
 
@@ -37,7 +37,7 @@ const BookingsTable = ({ params }) => {
   const sortedBookings = sortBookings(filteredBookings, bookingsSortOption);
 
   // PAGINATION
-  const currentPage = params?.page || 1;
+  const currentPage = page || 1;
   const itemsPerPage = 4;
   // total number of items in your table
   const totalItemsInTable = filteredBookings.length;
