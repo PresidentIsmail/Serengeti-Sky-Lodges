@@ -27,6 +27,12 @@ const Cabins = () => {
   const [filterOption] = useAtom(cabinsFilterOptionAtom);
   const [sortOption] = useAtom(cabinsSortOptionAtom);
 
+  // get the state and dispatch function from the cabinsformcontext
+  const showInsertCabinForm = useCabinsFormContext().showInsertCabinForm;
+  const showUpdateCabinForm = useCabinsFormContext().showUpdateCabinForm;
+  const toggleInsertCabinForm = useCabinsFormContext().toggleInsertCabinForm;
+  const toggleUpdateCabinForm = useCabinsFormContext().toggleUpdateCabinForm;
+
   // filter the cabins based on the filter option
   const filteredCabins = cabins?.filter((cabin) => {
     if (filterOption === "all") return cabin;
@@ -42,12 +48,6 @@ const Cabins = () => {
     if (sortOption === "price-low") return a.regularprice - b.regularprice;
     if (sortOption === "discount") return b.discount - a.discount;
   });
-
-  // get the state and dispatch function from the cabinsformcontext
-  const showInsertCabinForm = useCabinsFormContext().showInsertCabinForm;
-  const showUpdateCabinForm = useCabinsFormContext().showUpdateCabinForm;
-  const toggleInsertCabinForm = useCabinsFormContext().toggleInsertCabinForm;
-  const toggleUpdateCabinForm = useCabinsFormContext().toggleUpdateCabinForm;
 
   // if there is an error fetching the data, display the error message
   if (error) return <div>Error loading cabins</div>;

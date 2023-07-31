@@ -25,7 +25,7 @@ import { Button } from "../ui/button";
 // sidebar component
 const Sidebar = () => {
   const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSampleDataAdded, setIsSampleDataAdded] = useState(false);
   const [activeLink, setActiveLink] = useState("");
 
@@ -63,30 +63,26 @@ const Sidebar = () => {
   return (
     <nav
       className={`relative ${
-        isSidebarOpen ? "" : "p-8"
-      } border-r-2 border-r-gray-100`}
+        isSidebarOpen ? "px-8 " : "px-6"
+      } border-r-2 border-r-gray-100 py-12`}
     >
       {/* sidebar toggle button */}
       <button
         onClick={toggleSidebar}
-        className="absolute right-2 top-6 z-10 text-black hover:text-black/70"
+        className="absolute right-2 top-6 z-10 text-black transition-colors hover:text-violet-500"
       >
         <TbLayoutSidebarLeftCollapse
           className={`${isSidebarOpen ? "" : "rotate-180"} h-7 w-7`}
         />
       </button>
-      <div
-        className={`${
-          isSidebarOpen ? "" : "hidden"
-        } relative  bg-white  px-8 py-12`}
-      >
+      <div className={`${isSidebarOpen ? "" : "hidden"} relative  bg-white  `}>
         {/* logo */}
         <div className="relative h-32 w-auto">
           <Image src={logo} alt="logo" fill priority />
         </div>
 
         {/* links */}
-        <div className="mt-8 flex  flex-col gap-4">
+        <div className="mt-8 flex w-max flex-col gap-4">
           <SidebarLink href="/dashboard" active={activeLink === "/dashboard"}>
             <SidebarIcon
               Icon={HiOutlineHome}

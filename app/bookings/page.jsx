@@ -6,8 +6,8 @@ import BookingsTable from "@/components/bookings/BookingsTable";
 import BookingsFilterBy from "@/components/bookings/BookingsFilterBy";
 import BookingSortByComponentWithNoSSR from "@/components/bookings/BookingSortByComponentWithNoSSR ";
 
-const Bookings = ({ searchParams }) => {
-  const params = searchParams;
+const Bookings = ({ params }) => {
+
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-8">

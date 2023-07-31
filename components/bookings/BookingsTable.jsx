@@ -11,7 +11,8 @@ import { getAllBookings } from "@/supabase/bookingsApi";
 import { Table, TableCaption } from "@/components/ui/table";
 import BookingsTableBody from "./BookingsTableBody";
 import BookingsTableHead from "./BookingsTableHead";
-import Pagination from "../Pagination";
+import Pagination from "./Pagination";
+import Loader from "../loading/Loader";
 
 const BookingsTable = ({ params }) => {
   // Fetch bookings data
@@ -21,7 +22,13 @@ const BookingsTable = ({ params }) => {
   const [bookingsSortOption] = useAtom(bookingsSortOptionAtom);
 
   // if there is no bookings data, display the loading component
-  if (!bookings) return <div>Loading...</div>;
+  if (!bookings)
+    return (
+      <>
+        <div>Loading data...</div>
+        <Loader />
+      </>
+    );
 
   // FILTERING - filter the bookings data
   const filteredBookings = filterBookings(bookings, bookingsFilterOption);

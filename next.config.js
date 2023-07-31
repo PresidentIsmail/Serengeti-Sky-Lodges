@@ -6,6 +6,7 @@ const nextConfig = {
       "xwpwrzydtdujobdfhkqd.supabase.co",
       "placehold.co",
       "images.unsplash.com",
+      "picsum.photos",
     ],
   },
 };

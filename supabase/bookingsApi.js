@@ -9,7 +9,10 @@ get all the following data from the bookings table:
 export async function getAllBookings() {
   const table = "bookings"; // Replace "bookings" with your actual table name
 
-  let { data: bookings, error } = await supabase.from(table).select(`
+  let { data: bookings, error } = await supabase
+    .from(table)
+    .select(
+      `
       id,
       startdate,
       enddate,
@@ -20,7 +23,8 @@ export async function getAllBookings() {
       observation,
       numguests,
       ispaid
-    `);
+    `
+    );
 
   if (error) {
     throw error;
@@ -33,10 +37,10 @@ export async function getAllBookings() {
 get all the data for a specific booking. include all the data for the cabin and the guest
 */
 export async function getBookingDataById(bookingId) {
-  const table = "bookings"; // Replace "bookings" with your actual table name
+  const tableName = "bookings";
 
   let { data: bookings, error } = await supabase
-    .from(table)
+    .from(tableName)
     .select(
       `
       *,
@@ -44,6 +48,25 @@ export async function getBookingDataById(bookingId) {
       guestid (*)
     `,
     )
+    .eq("id", bookingId)
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return bookings;
+}
+
+/* 
+update the ispaid and status fields for a specific booking
+*/
+export async function updateBookingStatus(bookingId, status, isPaid) {
+  const tableName = "bookings";
+
+  let { data: bookings, error } = await supabase
+    .from(tableName)
+    .update({ status, ispaid: isPaid })
     .eq("id", bookingId);
 
   if (error) {

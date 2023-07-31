@@ -6,8 +6,8 @@ import Link from "next/link";
 import { formatCurrency } from "@/utils/helpers";
 
 // UI and icon Imports
-import eye from "@/assets/icons/eye.svg";
 import { LuEye } from "react-icons/lu";
+import { HiOutlineCheckCircle } from "react-icons/hi";
 import ContextMenu from "@/components/contextMenu/ContextMenu";
 import ContextMenuButton from "@/components/contextMenu/ContextMenuButton";
 import StatusBadge from "./StatusBadge";
@@ -33,6 +33,9 @@ const BookingsTableRow = ({ booking }) => {
 
   // format currency
   const totalPriceFormatted = formatCurrency(totalprice);
+
+  // format data to send to the checkin page
+
 
   return (
     <TableRow>
@@ -65,11 +68,19 @@ const BookingsTableRow = ({ booking }) => {
       {/* context menu to view booking details */}
       <TableCell>
         <ContextMenu>
-          <Link href={`bookings/${id}`}>
+          <Link href={`bookings/${id}?page=bookings`}>
             <ContextMenuButton label="View details">
               <LuEye className="h-6 w-6 text-gray-800 " />
             </ContextMenuButton>
           </Link>
+          {/* if status is unconfirmed - show check-in btn */}
+          {status === "unconfirmed" && (
+            <Link href={`checkin/${id}?page=checkin`}>
+              <ContextMenuButton label="Check in">
+                <HiOutlineCheckCircle className="h-6 w-6 text-gray-800 " />
+              </ContextMenuButton>
+            </Link>
+          )}
         </ContextMenu>
       </TableCell>
     </TableRow>
