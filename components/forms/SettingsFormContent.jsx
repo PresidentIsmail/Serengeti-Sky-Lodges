@@ -174,7 +174,7 @@ const SettingsFormContent = ({ settings }) => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-max bg-violet-500 text-base font-semibold  hover:bg-violet-500/80"
+            className="w-full bg-violet-500 text-base font-semibold  hover:bg-violet-500/80"
           >
             {isLoading ? (
               <>

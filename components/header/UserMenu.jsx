@@ -8,8 +8,6 @@ import { toast } from "react-hot-toast";
 // api
 import { logoutUser } from "@/supabase/authApi";
 
-const defaultImage = "https://github.com/shadcn.png";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +19,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "../ui/button";
+
+const defaultImg = "img/default-avatar.jpg";
 
 const UserMenu = () => {
   const router = useRouter();
@@ -39,7 +39,7 @@ const UserMenu = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={defaultImage} alt="profile image" />
+            <AvatarImage src={defaultImg} alt="profile image" />
             <AvatarFallback>SC</AvatarFallback>
           </Avatar>
         </Button>

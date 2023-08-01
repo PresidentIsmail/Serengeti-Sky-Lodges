@@ -14,6 +14,7 @@ import {
   HiOutlineHomeModern,
   HiOutlineUsers,
 } from "react-icons/hi2";
+import { VscAccount } from "react-icons/vsc";
 import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
 import { PiSpinnerGap } from "react-icons/pi";
 
@@ -113,6 +114,11 @@ const Sidebar = () => {
               active={activeLink === "/users"}
             />
             <span>Users</span>
+          </SidebarLink>
+
+          <SidebarLink href="/account" active={activeLink === "/account"}>
+            <SidebarIcon Icon={VscAccount} active={activeLink === "/account"} />
+            <span>Account</span>
           </SidebarLink>
 
           <SidebarLink href="/settings" active={activeLink === "/settings"}>
