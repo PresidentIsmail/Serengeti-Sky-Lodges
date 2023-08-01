@@ -1,9 +1,9 @@
 "use client";
 
 // third party
-import { useEffect, useState } from "react";
+import { mutate } from "swr";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 // api
@@ -52,6 +52,9 @@ const Profile = ({ user }) => {
 
       toast.success("Profile updated successfully");
       setIsSubmitting(false);
+      
+      // revalidate data on page
+      mutate("/");
     } catch (error) {
       setIsSubmitting(false);
       toast.error(error.message);

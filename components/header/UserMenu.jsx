@@ -4,9 +4,11 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import useSWR from "swr";
 
 // api
 import { logoutUser } from "@/supabase/authApi";
+import { getUserSession } from "@/supabase/userApi";
 
 import {
   DropdownMenu,
@@ -23,7 +25,10 @@ import { Button } from "../ui/button";
 const defaultImg = "img/default-avatar.jpg";
 
 const UserMenu = () => {
+  // get user data from session to use personolize avatar
+  const { data: userData, error, mutate } = useSWR("/", getUserSession);
   const router = useRouter();
+
   const handleLogout = async () => {
     try {
       await logoutUser();
@@ -33,22 +38,39 @@ const UserMenu = () => {
       toast.error(error.message);
     }
   };
+
+  // wait to get userData
+  if (!userData) {
+    return <p className="text-sm text-gray-500">loading user...</p>;
+  }
+
+  // if there is an error getting userData
+  if (error) {
+    toast.error(error);
+    return <p className="text-sm text-red-500">error fetching user.</p>;
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={defaultImg} alt="profile image" />
-            <AvatarFallback>SC</AvatarFallback>
+            <AvatarImage
+              src={userData.avatar || defaultImg}
+              alt="profile image"
+            />
+            <AvatarFallback>
+              {userData.full_name.charAt(0).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className="w-56 py-2" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">shadcn</p>
-            <p className="text-muted-foreground text-xs leading-none">
-              m@example.com
+          <div className="flex flex-col space-y-2">
+            <p className="font-semibold leading-none">{userData.full_name}</p>
+            <p className="text-xs leading-none text-gray-600">
+              {userData.email}
             </p>
           </div>
         </DropdownMenuLabel>

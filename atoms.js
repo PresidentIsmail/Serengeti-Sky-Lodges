@@ -20,3 +20,6 @@ export const cabinsAtom = atom([]);
 
 // Atom to check if a cabin was deleted
 export const cabinDeletedAtom = atom(false);
+
+// Atom to store User data
+export const userAtom = atom({});
