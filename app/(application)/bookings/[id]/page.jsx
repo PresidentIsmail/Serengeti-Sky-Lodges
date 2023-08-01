@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import BookingDetails from "../../../components/bookings/BookingDetails";
+import BookingDetails from "@/components/bookings/BookingDetails";
 import { BiArrowBack } from "react-icons/bi";
 import Link from "next/link";
 
@@ -25,7 +25,6 @@ const page = ({ searchParams, params }) => {
         <h1 className="text-3xl font-bold tracking-wide lg:text-4xl xl:text-5xl">
           Booking #{id}
         </h1>
-
       </header>
       <BookingDetails bookingId={id} page={page} />
     </>

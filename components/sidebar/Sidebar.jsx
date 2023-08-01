@@ -113,7 +113,7 @@ const Sidebar = () => {
               Icon={HiOutlineUsers}
               active={activeLink === "/users"}
             />
-            <span>Users</span>
+            <span>Create Users</span>
           </SidebarLink>
 
           <SidebarLink href="/account" active={activeLink === "/account"}>

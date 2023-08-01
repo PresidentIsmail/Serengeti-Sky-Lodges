@@ -1,5 +1,3 @@
-
-
 /* using a different client for auth
   This code loads the Supabase client and sets up authentication.
   the session from logging in will be saved to the cookies.
@@ -8,18 +6,18 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const supabase_cookie = createClientComponentClient();
 
-
-
 // login function that will handle user login using email and password
 export async function loginUser({ email, password }) {
   try {
-    const { data: user, error } = await supabase_cookie.auth.signInWithPassword({
-      email,
-      password,
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+    const { data: user, error } = await supabase_cookie.auth.signInWithPassword(
+      {
+        email,
+        password,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
       },
-    });
+    );
 
     if (error) {
       // Handle login error
@@ -52,7 +50,6 @@ export async function logoutUser() {
   }
 }
 
-
 /*
 using this client for auth because for signing up there is no need to save the users session to cookies.
 The supabase_cookie client will save the session to cookies, but the supabase_session client will not.
@@ -66,9 +63,10 @@ export async function signUpUser({ fullName, email, password }) {
     email,
     password,
     options: {
-      fullName,
-      avatar_url: "",
-      // redirectTo: `${window.location.origin}/auth/callback`,
+      data: {
+        full_name: fullName,
+        avatar: "",
+      },
     },
   });
 
@@ -78,3 +76,4 @@ export async function signUpUser({ fullName, email, password }) {
     throw new Error(error.message);
   }
 }
+

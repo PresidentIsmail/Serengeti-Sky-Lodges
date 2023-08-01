@@ -25,14 +25,13 @@ const defaultImg = "img/default-avatar.jpg";
 const UserMenu = () => {
   const router = useRouter();
   const handleLogout = async () => {
-    toast.success("nice one.");
-    // try {
-    //   await logoutUser();
-    //   toast.success("Logged out successfully");
-    //   router.push("/login");
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
+    try {
+      await logoutUser();
+      toast.success("Logged out successfully");
+      router.push("/login");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <DropdownMenu>
