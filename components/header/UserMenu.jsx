@@ -22,7 +22,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "../ui/button";
 
-const defaultImg = "img/default-avatar.jpg";
+const defaultImg = "img/profile/default-avatar.jpg";
 
 const UserMenu = () => {
   // get user data from session to use personolize avatar
