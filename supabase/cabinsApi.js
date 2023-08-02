@@ -2,7 +2,7 @@
 import { supabase } from "./supabase";
 import { v4 as uuidv4 } from "uuid";
 
-const table = "cabins_test";
+const table = "cabins";
 
 // get all cabins
 export async function getAllCabins() {
