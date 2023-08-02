@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import useSWR from "swr";
+import { useAtom } from "jotai";
+import { userFullNameAtom } from "@/atoms";
 
 // api
 import { logoutUser } from "@/supabase/authApi";
@@ -28,6 +30,7 @@ const UserMenu = () => {
   // get user data from session to use personolize avatar
   const { data: userData, error, mutate } = useSWR("/", getUserSession);
   const router = useRouter();
+  const [user, setUser] = useAtom(userFullNameAtom);
 
   const handleLogout = async () => {
     try {
@@ -43,6 +46,9 @@ const UserMenu = () => {
   if (!userData) {
     return <p className="text-sm text-gray-500">loading user...</p>;
   }
+
+  // set full_name to userAtom
+  setUser(userData.full_name);
 
   // if there is an error getting userData
   if (error) {

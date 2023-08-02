@@ -22,4 +22,4 @@ export const cabinsAtom = atom([]);
 export const cabinDeletedAtom = atom(false);
 
 // Atom to store User data
-export const userAtom = atom({});
+export const userFullNameAtom = atom("");

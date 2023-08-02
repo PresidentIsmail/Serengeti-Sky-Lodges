@@ -67,7 +67,7 @@ const Sidebar = () => {
     <nav
       className={`relative ${
         isSidebarOpen ? "px-8 " : "px-6"
-      } border-r-2 border-r-gray-100 py-12`}
+      } min-w-max overflow-hidden border-r-2 border-r-gray-100 py-12`}
     >
       {/* sidebar toggle button */}
       <button
@@ -78,14 +78,20 @@ const Sidebar = () => {
           className={`${isSidebarOpen ? "" : "rotate-180"} h-7 w-7`}
         />
       </button>
-      <div className={`${isSidebarOpen ? "" : "hidden"} relative  bg-white  `}>
+
+      {/* sidebar content */}
+      <div
+        className={`${
+          isSidebarOpen ? "" : "hidden"
+        } relative h-full w-full  bg-white  `}
+      >
         {/* logo */}
         <div className="relative h-32 w-auto">
           <Image src={logo} alt="logo" fill priority />
         </div>
 
         {/* links */}
-        <div className="mt-8 flex w-max flex-col gap-4">
+        <div className="mt-8 flex h-full w-max flex-col gap-4">
           <SidebarLink href="/dashboard" active={activeLink === "/dashboard"}>
             <SidebarIcon
               Icon={HiOutlineHome}
@@ -118,11 +124,6 @@ const Sidebar = () => {
             <span>Create Users</span>
           </SidebarLink>
 
-          <SidebarLink href="/account" active={activeLink === "/account"}>
-            <SidebarIcon Icon={VscAccount} active={activeLink === "/account"} />
-            <span>Account</span>
-          </SidebarLink>
-
           <SidebarLink href="/settings" active={activeLink === "/settings"}>
             <SidebarIcon
               Icon={HiOutlineCog6Tooth}
@@ -130,9 +131,22 @@ const Sidebar = () => {
             />
             <span>Settings</span>
           </SidebarLink>
-        </div>
 
-        {/* btn to add sample data */}
+          {/* seperate the aount btn from the rest */}
+          <SidebarLink href="/account" active={activeLink === "/account"}>
+            <SidebarIcon Icon={VscAccount} active={activeLink === "/account"} />
+            <span>Account</span>
+          </SidebarLink>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Sidebar;
+
+/* 
+
         <div className={`${isSidebarOpen ? "" : "hidden"} mt-10`}>
           <Button
             onClick={addSampleData}
@@ -151,9 +165,4 @@ const Sidebar = () => {
             )}
           </Button>
         </div>
-      </div>
-    </nav>
-  );
-};
-
-export default Sidebar;
+*/
