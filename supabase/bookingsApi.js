@@ -9,10 +9,8 @@ get all the following data from the bookings table:
 export async function getAllBookings() {
   const table = "bookings"; // Replace "bookings" with your actual table name
 
-  let { data: bookings, error } = await supabase
-    .from(table)
-    .select(
-      `
+  let { data: bookings, error } = await supabase.from(table).select(
+    `
       id,
       startdate,
       enddate,
@@ -23,8 +21,8 @@ export async function getAllBookings() {
       observation,
       numguests,
       ispaid
-    `
-    );
+    `,
+  );
 
   if (error) {
     throw error;
@@ -68,6 +66,31 @@ export async function updateBookingStatus(bookingId, status, isPaid) {
     .from(tableName)
     .update({ status, ispaid: isPaid })
     .eq("id", bookingId);
+
+  if (error) {
+    throw error;
+  }
+
+  return bookings;
+}
+
+/* 
+get the following data from the bookings table, that will e used in the dashboard:
+- startdate, enddate, status, totalprice
+*/
+export async function getBookingsForDashboard() {
+  const table = "bookings";
+
+  let { data: bookings, error } = await supabase.from(table).select(
+    `
+      id,
+      startdate,
+      enddate,
+      numnights,
+      status,
+      totalprice
+    `,
+  );
 
   if (error) {
     throw error;

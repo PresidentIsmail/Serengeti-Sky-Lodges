@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import { addSampleCabins } from "@/data/data-cabins";
 import { addSampleGuests } from "@/data/data-guests";
+import { addSampleBookings } from "@/data/data-bookings";
 
 import {
   HiOutlineCalendarDays,
@@ -27,7 +28,7 @@ import { Button } from "../ui/button";
 const Sidebar = () => {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isSampleDataAdded, setIsSampleDataAdded] = useState(false);
+  const [addingSampleData, setAddingSampleData] = useState(false);
   const [activeLink, setActiveLink] = useState("");
 
   useEffect(() => {
@@ -49,14 +50,15 @@ const Sidebar = () => {
   // function to add sample data
   const addSampleData = async () => {
     try {
+      setAddingSampleData(true);
       // await addSampleCabins();
       // await addSampleGuests();
-      setIsSampleDataAdded(true);
+      await addSampleBookings();
     } catch (error) {
       console.log(error);
     } finally {
       setTimeout(() => {
-        setIsSampleDataAdded(false);
+        setAddingSampleData(false);
       }, 2000);
     }
   };
@@ -137,10 +139,10 @@ const Sidebar = () => {
             disabled={true}
             className="flex w-full items-center justify-center gap-2"
           >
-            {isSampleDataAdded ? (
+            {addingSampleData ? (
               <>
                 <PiSpinnerGap className="h-5 w-5 animate-spin" />
-                <span>Sample data added</span>
+                <span>adding data...</span>
               </>
             ) : (
               <>

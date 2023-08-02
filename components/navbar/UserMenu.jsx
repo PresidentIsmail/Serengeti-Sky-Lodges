@@ -54,10 +54,11 @@ const UserMenu = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
+          <Avatar className="h-10 w-10 border-[2px] border-violet-500 p-[1px]">
             <AvatarImage
               src={userData.avatar || defaultImg}
               alt="profile image"
+              className="rounded-full"
             />
             <AvatarFallback>
               {userData.full_name.charAt(0).toUpperCase()}

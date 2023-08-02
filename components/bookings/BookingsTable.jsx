@@ -38,7 +38,7 @@ const BookingsTable = ({ page }) => {
 
   // PAGINATION
   const currentPage = page || 1;
-  const itemsPerPage = 4;
+  const itemsPerPage = 10;
   // total number of items in your table
   const totalItemsInTable = filteredBookings.length;
   // Logic to calculate the total number of pages

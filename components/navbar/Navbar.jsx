@@ -12,7 +12,7 @@ const UserMenu = dynamic(() => import("@/components/navbar/UserMenu"), {
 const Navbar = () => {
   return (
     <header className="flex justify-between border-b-[1px] border-b-gray-100 bg-white px-8 py-4">
-      <Heading as="h3">Header</Heading>
+      <Heading as="h3">Navbar</Heading>
 
       {/* user profile */}
       <UserMenu />
