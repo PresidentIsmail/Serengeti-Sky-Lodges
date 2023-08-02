@@ -88,10 +88,34 @@ export async function getBookingsForDashboard() {
       enddate,
       numnights,
       status,
-      totalprice
+      totalprice,
+      extrasprice
     `,
   );
 
+  if (error) {
+    throw error;
+  }
+
+  return bookings;
+}
+
+// get data to show in activity table
+export async function getBookingsForActivityTable() {
+  const table = "bookings";
+
+  let { data: bookings, error } = await supabase
+    .from(table)
+    .select(
+      `
+      id,
+      numnights,
+      status,
+      guestid (fullname)
+    `,
+    )
+    .in("status", ["unconfirmed", "checked-in"])
+    .limit(5);
   if (error) {
     throw error;
   }

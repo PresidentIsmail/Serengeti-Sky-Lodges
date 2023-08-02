@@ -11,6 +11,8 @@ import { getBookingsForDashboard } from "@/supabase/bookingsApi";
 import Loader from "@/components/loading/Loader";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import StatsRow from "@/components/dashboard/StatsRow";
+import SalesChart from "@/components/dashboard/SalesChart";
+import WeeksActivity from "@/components/dashboard/WeeksActivity";
 
 const Dashboard = ({ searchParams }) => {
   // fetch all bookings
@@ -20,9 +22,9 @@ const Dashboard = ({ searchParams }) => {
     mutate,
   } = useSWR("/dashboard", getBookingsForDashboard);
 
-  const filter = searchParams.days || "last7";
+  const filter = searchParams.days || "last14";
 
-  if (error) return <div>failed to load</div>;
+  if (error) return <div>failed to load, an error occured: {error.message}</div>;
   if (!bookings)
     return (
       <div className="grid">
@@ -32,17 +34,8 @@ const Dashboard = ({ searchParams }) => {
     );
 
 
-  /* 
-  sample booking object
-  enddate : "2023-04-03T00:00:00"
-  id : 3
-  numnights : 2
-  startdate : "2023-04-01T00:00:00"
-  status : "unconfirmed"
-  totalprice : 200
-  */
 
-  // filter bookings by filter param, default is last7. return all bookings for the last 7 days, 30 days or 90 days
+  // filter bookings by filter param, default is last14. return all bookings for the last 7 days, 30 days or 90 days
   const filteredBookings = bookings.filter((booking) => {
     const today = new Date();
 
@@ -50,9 +43,9 @@ const Dashboard = ({ searchParams }) => {
     const bookingDate = new Date(booking.startdate);
 
     // check if the booking date is within the last 7 days
-    if (filter === "last7") {
+    if (filter === "last14") {
       return isWithinInterval(bookingDate, {
-        start: subDays(today, 7),
+        start: subDays(today, 14),
         end: today,
       });
     }
@@ -76,12 +69,16 @@ const Dashboard = ({ searchParams }) => {
 
   return (
     <div className="flex flex-col gap-8">
-      <DashboardHeader />
+      <DashboardHeader filter={filter}/>
 
       {/* grid layout of stat cards */}
       <StatsRow filteredBookings={filteredBookings} filter={filter} />
 
+      {/* display of this weeks guests */}
+      <WeeksActivity bookings={filteredBookings} />
+
       {/* sales chart */}
+      <SalesChart bookings={filteredBookings}/>
     </div>
   );
 };
