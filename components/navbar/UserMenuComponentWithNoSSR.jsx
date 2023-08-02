@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 
 const UserMenuComponentWithNoSSR = dynamic(
-  () => import("@/components/header/UserMenu"),
+  () => import("@/components/navbar/UserMenu"),
   {
     ssr: false,
   },

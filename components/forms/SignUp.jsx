@@ -27,34 +27,27 @@ import { Label } from "@/components/ui/label";
 const SignUp = () => {
   // 1. Initialize the useForm hook and get form methods and state
   const { register, handleSubmit, formState, setError, reset, getValues } =
-    useForm({
-      defaultValues: {
-        fullname: "Bad Bunny",
-        email: "badbunny@email.com",
-        password: "heaven",
-        confirmPassword: "heaven",
-      },
-    });
+    useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // function to create/sign up a user
-    async function onSubmit(data) {
-      try {
-        setIsSubmitting(true); // Set submitting state to true to show loading spinner
-        await signUpUser({
-          fullName: data.fullname,
-          email: data.email,
-          password: data.password,
-        });
-        setIsSubmitting(false); // Set submitting state to false after sign up is successful
-        toast.success("User created successfully");
-        reset(); // Reset the form after successful sign up
-      } catch (error) {
-        setIsSubmitting(false); // Set submitting state to false if there's an error during sign up
-        toast.error("An error occurred during sign up");
-        console.error(error);
-      }
+  // function to create/sign up a user
+  async function onSubmit(data) {
+    try {
+      setIsSubmitting(true); // Set submitting state to true to show loading spinner
+      await signUpUser({
+        fullName: data.fullname,
+        email: data.email,
+        password: data.password,
+      });
+      setIsSubmitting(false); // Set submitting state to false after sign up is successful
+      toast.success("User created successfully");
+      reset(); // Reset the form after successful sign up
+    } catch (error) {
+      setIsSubmitting(false); // Set submitting state to false if there's an error during sign up
+      toast.error("An error occurred during sign up");
+      console.error(error);
     }
+  }
 
   return (
     <Card className="w-full max-w-lg shadow-md">
