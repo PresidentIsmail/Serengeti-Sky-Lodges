@@ -2,7 +2,7 @@ import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const BookingsTableHead = () => {
   return (
-    <TableHeader className=" bg-slate-100/50 shadow-md">
+    <TableHeader className="">
       <TableRow className="">
         <TableHead className="w-[100px] rounded-tl-lg">
           Cabin

@@ -70,14 +70,11 @@ const Dashboard = ({ searchParams }) => {
     <div className="grid gap-8 ">
       <DashboardHeader filter={filter} />
 
-      <div className="grid first-line:grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 first-line:grid-cols-1 lg:grid-cols-2">
         {/* grid layout of stat cards */}
-        <StatsRow
-          filteredBookings={filteredBookings}
-          filter={filter}
-        />
+        <StatsRow filteredBookings={filteredBookings} filter={filter} />
         {/* display of this weeks guests */}
-        <WeeksActivity bookings={filteredBookings}/>
+        <WeeksActivity bookings={filteredBookings} />
       </div>
 
       {/* sales chart */}

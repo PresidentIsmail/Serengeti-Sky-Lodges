@@ -30,7 +30,7 @@ export default async function ApplicationLayout({ children }) {
           <Sidebar />
           <div className="flex flex-1 flex-col ">
             <Navbar />
-            <main className="relative h-full overflow-y-scroll pb-24 pe-16 ps-8 pt-16">
+            <main className="relative h-full bg-gray-50 overflow-y-scroll pb-24 pe-16 ps-8 pt-16">
               {children}
             </main>
           </div>
