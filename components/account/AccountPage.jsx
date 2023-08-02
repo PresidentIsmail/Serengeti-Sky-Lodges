@@ -24,7 +24,7 @@ const AccountPage = async () => {
   };
 
   return (
-    <Tabs defaultValue="profile" className="w-[500px]">
+    <Tabs defaultValue="profile" className="w-[500px] ">
       <h1 className="self-start  text-3xl font-semibold lg:text-4xl">
         Edit Account
       </h1>
