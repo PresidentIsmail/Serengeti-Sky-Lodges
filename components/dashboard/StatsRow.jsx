@@ -44,7 +44,7 @@ const StatsRow = ({ filteredBookings, filter }) => {
   );
 
   return (
-    <div className="grid grid-cols-4 gap-4 ">
+    <div className="grid grid-cols-2 gap-4 lg:order-last">
       {/* bookings */}
       <StatCard title="Bookings" value={totalBookings}>
         <HiOutlineBriefcase className="h-12 w-12 rounded-full bg-blue-100 p-2 text-blue-500" />

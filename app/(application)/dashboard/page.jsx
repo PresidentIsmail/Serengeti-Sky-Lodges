@@ -24,7 +24,8 @@ const Dashboard = ({ searchParams }) => {
 
   const filter = searchParams.days || "last14";
 
-  if (error) return <div>failed to load, an error occured: {error.message}</div>;
+  if (error)
+    return <div>failed to load, an error occured: {error.message}</div>;
   if (!bookings)
     return (
       <div className="grid">
@@ -32,8 +33,6 @@ const Dashboard = ({ searchParams }) => {
         <Loader />
       </div>
     );
-
-
 
   // filter bookings by filter param, default is last14. return all bookings for the last 7 days, 30 days or 90 days
   const filteredBookings = bookings.filter((booking) => {
@@ -68,17 +67,21 @@ const Dashboard = ({ searchParams }) => {
   });
 
   return (
-    <div className="flex flex-col gap-8">
-      <DashboardHeader filter={filter}/>
+    <div className="grid gap-8 ">
+      <DashboardHeader filter={filter} />
 
-      {/* grid layout of stat cards */}
-      <StatsRow filteredBookings={filteredBookings} filter={filter} />
-
-      {/* display of this weeks guests */}
-      <WeeksActivity bookings={filteredBookings} />
+      <div className="grid first-line:grid-cols-1 gap-4 lg:grid-cols-2">
+        {/* grid layout of stat cards */}
+        <StatsRow
+          filteredBookings={filteredBookings}
+          filter={filter}
+        />
+        {/* display of this weeks guests */}
+        <WeeksActivity bookings={filteredBookings}/>
+      </div>
 
       {/* sales chart */}
-      <SalesChart bookings={filteredBookings}/>
+      <SalesChart bookings={filteredBookings} />
     </div>
   );
 };

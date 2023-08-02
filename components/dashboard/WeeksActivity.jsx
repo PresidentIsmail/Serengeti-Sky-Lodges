@@ -15,9 +15,9 @@ const WeeksActivity = async () => {
   const bookings = await getBookingsForActivityTable();
 
   return (
-    <Card className="flex max-w-[550px] flex-col gap-8 p-4">
+    <Card className="flex flex-col gap-8 p-4">
       <h2 className="mb-4 text-2xl font-bold">This Week&apos;s Activity</h2>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 ">
         {bookings.map((booking) => (
           <BookingActivity key={booking.id} booking={booking} />
         ))}
@@ -33,7 +33,7 @@ const BookingActivity = memo(({ booking }) => {
   console.log(fullname);
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-4 items-baseline gap-4 border-b-[1px] py-2">
       {/* either "arriving" or "departing" */}
       <GuestStatus status={status} />
 
@@ -46,20 +46,20 @@ const BookingActivity = memo(({ booking }) => {
       </div>
 
       {/* check in btn that links to checkin/:id/page=checkin if status is unconfirmed*/}
-     {status === "unconfirmed" && (
-         <Button
-         asChild
-         size="sm"
-         className="rounded-full bg-violet-600 hover:bg-violet-600/70"
-       >
-         <Link href={`/checkin/${id}?page=checkin`}>
-           <p>Check In</p>{" "}
-           <span>
-             <MdOutlineOpenInNew className="ml-2 h-4 w-4" />
-           </span>
-         </Link>
-       </Button>
-       )}
+      {status === "unconfirmed" && (
+        <Button
+          asChild
+          size="sm"
+          className="rounded-full  bg-violet-600 hover:bg-violet-600/70"
+        >
+          <Link href={`/checkin/${id}?page=checkin`}>
+            <p>Check In</p>{" "}
+            <span>
+              <MdOutlineOpenInNew className="ml-2 h-4 w-4" />
+            </span>
+          </Link>
+        </Button>
+      )}
     </div>
   );
 });
