@@ -1,7 +1,12 @@
+/* 
+backup login: badbunny@email.com - heaven
+
+*/
+
 "use client";
 
 // third party
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
@@ -11,7 +16,6 @@ import { loginUser } from "@/supabase/authApi";
 
 // components and icons
 import { PiSpinnerBold } from "react-icons/pi";
-import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,6 +39,11 @@ const LoginForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
+  // prefetch the account page as soon as the login page is loaded
+  useEffect(() => {
+    router.prefetch("/account");
+  }, [router]);
+
   // function to log user in
   async function onSubmit(data) {
     setIsSubmitting(true);
@@ -44,12 +53,12 @@ const LoginForm = () => {
         password: data.password,
       });
 
-      // prefetch the account page
-      router.prefetch("/account");
-
       toast.success("Logged in successfully");
       reset();
-      router.push("/account");
+      // router.push("/account");
+      router.push({
+        pathname: "/account",
+      });
     } catch (error) {
       toast.error(error.message);
       console.log(error);

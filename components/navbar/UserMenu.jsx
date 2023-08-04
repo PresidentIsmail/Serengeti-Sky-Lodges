@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "../ui/button";
+import { useEffect } from "react";
 
 const defaultImg = "img/profile/default-avatar.jpg";
 
@@ -31,6 +32,13 @@ const UserMenu = () => {
   const { data: userData, error, mutate } = useSWR("/", getUserSession);
   const router = useRouter();
   const [user, setUser] = useAtom(userFullNameAtom);
+
+  // set full_name to userAtom
+  useEffect(() => {
+    if (userData) {
+      setUser(userData.full_name);
+    }
+  }, [userData, setUser]);
 
   const handleLogout = async () => {
     try {
@@ -46,9 +54,6 @@ const UserMenu = () => {
   if (!userData) {
     return <p className="text-sm text-gray-500">loading user...</p>;
   }
-
-  // set full_name to userAtom
-  setUser(userData.full_name);
 
   // if there is an error getting userData
   if (error) {

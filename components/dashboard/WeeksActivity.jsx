@@ -30,7 +30,6 @@ const WeeksActivity = async () => {
 const BookingActivity = memo(({ booking }) => {
   const { id, guestid, status, numnights } = booking;
   const { fullname } = guestid;
-  console.log(fullname);
 
   return (
     <div className="grid grid-cols-4 items-baseline gap-4 border-b-[1px] py-2">
@@ -50,7 +49,7 @@ const BookingActivity = memo(({ booking }) => {
         <Button
           asChild
           size="sm"
-          className="rounded-full  bg-violet-600 hover:bg-violet-600/70"
+          className="w-max rounded-full  bg-violet-600 hover:bg-violet-600/70"
         >
           <Link href={`/checkin/${id}?page=checkin`}>
             <p>Check In</p>{" "}
