@@ -53,7 +53,9 @@ const LoginForm = () => {
         password: data.password,
       });
 
-      router.push("/account");
+      // refresh the page to get the session
+      router.refresh();
+
       toast.success("Logged in successfully");
       reset();
     } catch (error) {
@@ -143,3 +145,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+export const dynamic = "force-dynamic";

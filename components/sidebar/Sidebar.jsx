@@ -27,7 +27,7 @@ import { Button } from "../ui/button";
 // sidebar component
 const Sidebar = () => {
   const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [addingSampleData, setAddingSampleData] = useState(false);
   const [activeLink, setActiveLink] = useState("");
 
@@ -86,7 +86,7 @@ const Sidebar = () => {
         } relative h-full w-full  bg-white  `}
       >
         {/* logo */}
-        <div className="relative h-32 w-auto">
+        <div className="relative h-24 w-auto">
           <Image src={logo} alt="logo" fill priority />
         </div>
 
