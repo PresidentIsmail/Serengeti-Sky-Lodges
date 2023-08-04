@@ -1,53 +1,52 @@
-# Build a SaaS app with React
+<p align="center">
+  <img src="public/dashboard.png" alt="Serengeti Sky Lodges" width="800">
+</p>
 
-## Technologies Used
+# Serengeti Sky Lodges
 
-- Next.js (13), Supabase, Stripe, Vercel
+Escape to Serengeti Sky Lodges, where untamed beauty and luxury intertwine, offering a serene retreat amidst the captivating wilderness of the iconic Serengeti.
 
-## Tools Needed
+[![Playful Badge: Nature's Haven](https://img.shields.io/badge/%F0%9F%8C%B3-Nature's%20Haven-green)](https://serengeti-sky-lodges.vercel.app)
+[![Playful Badge: Luxurious Escapes](https://img.shields.io/badge/%F0%9F%8C%85-Luxurious%20Escapes-blue)](https://serengeti-sky-lodges.vercel.app)
+[![Playful Badge: Wilderness Adventure](https://img.shields.io/badge/%F0%9F%8C%B0-Wilderness%20Adventure-orange)](https://serengeti-sky-lodges.vercel.app)
+[![Playful Badge: Enchanted Getaway](https://img.shields.io/badge/%F0%9F%8D%83-Enchanted%20Getaway-yellow)](https://serengeti-sky-lodges.vercel.app)
 
-- [Node / NPM (Package Manager)](https://nodejs.org/)
-- [VSCode (Code Editor)](https://code.visualstudio.com/)
-- [Git / Github](https://git-scm.com/)
+## Features
 
-## Accounts Needed (100% Free)
+- 🏞️ Luxurious Lodges amidst Serengeti's wilderness
+- 🍽️ Farm-to-Table Cuisine at our Charming Restaurant
+- 🌌 Stargazing and Wildlife Safari Adventures
+- 💆‍♂️ Soothing Spa for Relaxation and Rejuvenation
+- 🚀 Next.js for Lightning-fast Performance
+- 🛂 Secure Authentication with Supabase
+- 📝 Full CRUD Functionality
+- 💻 Responsive Design for Seamless Experience
 
-- [Supabase (Backend)](https://supabase.com)
-- [Stripe (Payments)](https://stripe.com)
-- [Vercel (Deployment)](https://vercel.com)
-- [Github (Continuous Deployment)](https://github.com)
+## Demo
 
-## Next.js Documentation
+![App Walkthrough](public/app-walkthrough.gif)
 
-- [Next.js Image](https://nextjs.org/docs/api-reference/next/image)
-- [Next.js API Routes](https://nextjs.org/docs/api-routes/introduction)
-- [Next.js GetStaticPaths](https://nextjs.org/docs/basic-features/data-fetching/get-static-paths)
-- [Next.js GetStaticProps](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
+## Installation
 
-## Stripe Documentation (Select Node.js in code snippets)
+1. Clone the repository: `git clone https://github.com/PresidentIsmail/Serengeti-Sky-Lodges`
+2. Navigate to the project directory: `cd Serengeti-Sky-Lodges`
+3. Install dependencies: `npm install`
 
-- [Stripe Checkout: Customer Portal](https://stripe.com/docs/billing/subscriptions/build-subscriptions#customer-portal)
-- [Stripe API: List all prices](https://stripe.com/docs/api/prices/list)
-- [Stripe API: Retrieve product](https://stripe.com/docs/api/products/retrieve)
-- [Stripe API: Retrieve Customer](https://stripe.com/docs/api/customers/retrieve)
-- [Stripe API: Create a Checkout Session](https://stripe.com/docs/api/checkout/sessions/create)
-- [Stripe API: Event Object for Webhooks](https://stripe.com/docs/api/events/object)
-- [Stripe API: Versioning](https://stripe.com/docs/upgrades#api-versions)
-- [Stripe Checkout: Billing Portal Settings](https://dashboard.stripe.com/test/settings/billing/portal)
 
-## Supabase Documentation
+## Usage
 
-- [Supabase Next.js Auth Helpers](https://supabase.com/docs/guides/auth/auth-helpers/nextjs)
-- [Supabase Magic Link Login](https://supabase.com/docs/guides/auth/auth-magic-link)
-- [Supabase Auth Signout](https://supabase.com/docs/reference/javascript/auth-signout)
-- [Supabase RLS: Row Level Security](https://supabase.com/docs/guides/auth/row-level-security)
-- [Supabase Database Functions](https://supabase.com/docs/guides/database/functions)
-- [Supabase Database Triggers](https://supabase.com/docs/guides/auth/managing-user-data#using-triggers)
+1. Sign up for a free account on Supabase (https://supabase.io/) and obtain your API credentials.
+2. Create a `.env.local` file in the root directory and add your Supabase credentials:
+`NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+`
+3. Start the app: `npm run dev`
+4. Open your browser and visit `http://localhost:3000` to experience Serengeti Sky Lodges!
 
-## Additional Info
+## Live Website
 
-- The logo font is "Bakbak One", a free Google font
-- All the images are included in the /assets folder in /public
-- Along with each image is its original .psd (Photoshop) file
-- Seed product data using the Supabase SQL editor from the seed.sql file (in this project)
-- Use VSCode to instantly install the recommended extensions for this project (listed in the .vscode folder in this project)
+Experience Serengeti Sky Lodges live at [serengeti-sky-lodges.vercel.app](https://serengeti-sky-lodges.vercel.app)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
