@@ -19,7 +19,7 @@ const Login = async () => {
 
   // if there is a user, redirect to "/"
   if (user) {
-    redirect("/");
+    redirect("/dashboard");
   }
 
   return (

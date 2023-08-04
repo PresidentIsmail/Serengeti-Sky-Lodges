@@ -39,13 +39,17 @@ const LoginForm = () => {
   async function onSubmit(data) {
     setIsSubmitting(true);
     try {
-      const user = await loginUser({
+      await loginUser({
         email: data.email,
         password: data.password,
       });
+
+      // prefetch the account page
+      router.prefetch("/account");
+
       toast.success("Logged in successfully");
       reset();
-      router.push("/dashboard");
+      router.push("/account");
     } catch (error) {
       toast.error(error.message);
       console.log(error);
@@ -53,7 +57,6 @@ const LoginForm = () => {
     } finally {
       setIsSubmitting(false);
     }
-    console.log("i got here before redirecting")
   }
 
   return (
