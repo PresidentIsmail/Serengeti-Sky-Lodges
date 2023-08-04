@@ -53,12 +53,9 @@ const LoginForm = () => {
         password: data.password,
       });
 
+      router.push("/account");
       toast.success("Logged in successfully");
       reset();
-      // router.push("/account");
-      router.push({
-        pathname: "/account",
-      });
     } catch (error) {
       toast.error(error.message);
       console.log(error);
