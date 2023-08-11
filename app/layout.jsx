@@ -1,6 +1,7 @@
 import "./globals.css";
 import localFont from "next/font/local";
-import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react";
+import Providers from "@/providers/Providers";
 
 const ceraPro = localFont({
   src: [
@@ -30,29 +31,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${ceraPro.variable} font-sans`}>
-        {/* use toaster in app */}
-        <Toaster
-          position="top-center"
-          gutter={12}
-          containerStyle={{ margin: "4rem" }}
-          toastOptions={{
-            success: {
-              style: {
-                background: "#10B981",
-                color: "#fff",
-              },
-              duration: 3000,
-            },
-            error: {
-              style: {
-                background: "#EF4444",
-                color: "#fff",
-              },
-              duration: 5000,
-            },
-          }}
-        />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
