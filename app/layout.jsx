@@ -31,7 +31,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${ceraPro.variable} font-sans`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Analytics />
+        </Providers>
       </body>
     </html>
   );
