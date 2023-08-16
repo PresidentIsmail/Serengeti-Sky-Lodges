@@ -11,19 +11,19 @@
 
 
 # Serengeti Sky Lodges
-🌟 Escape to Serengeti Sky Lodges, where the untamed beauty of the iconic Serengeti intertwines with luxurious indulgence, creating a serene retreat like no other. Immerse yourself in the breathtaking wilderness and experience the ultimate blend of nature and opulence.
+### Description
 
-🌳 Nature's Haven: Our lodges offer a harmonious sanctuary amidst the Serengeti's picturesque landscape, inviting you to unwind in style and comfort.
+"Serengeti Sky Lodges" is a comprehensive web application designed to streamline the management and operations of a luxurious lodge in the heart of the Serengeti. The application empowers lodge employees by providing a user-friendly interface to perform essential tasks such as user check-ins, account management, and cabin administration. With features for creating, updating, and deleting cabin details, as well as managing guest accounts, "Serengeti Sky Lodges" enhances the lodge's efficiency and guest experience.
 
-🏰 Luxurious Escapes: Indulge in the epitome of luxury as you immerse yourself in the rich ambiance of our charming lodges, thoughtfully designed to cater to your every desire.
+### Key Features
 
-🐾 Wilderness Adventure: Embark on thrilling wildlife safaris and immerse yourself in the captivating wilderness, where every moment is an enchanting encounter with nature's wonders.
+- User-friendly interface for lodge employees.
+- Efficient user check-in process.
+- Cabin administration: Create, update, and delete cabin details.
+- Guest account management for a personalized experience.
+- Interactive and intuitive design for easy navigation.
 
-✨ Enchanted Getaway: Surrender to the magic of Serengeti Sky Lodges and let yourself be enchanted by the serenity, beauty, and romance that surrounds you.
 
-With lightning-fast performance powered by Next.js, secure authentication through Supabase, and full CRUD functionality, our website delivers an unforgettable user experience. From farm-to-table cuisine at our charming restaurant to soothing spa treatments and stargazing adventures, each element of our website is crafted to captivate your senses and leave you longing for more.
-
-Welcome to Serengeti Sky Lodges, where untamed wilderness meets unrivaled luxury. Prepare to embark on an extraordinary journey, a haven of indulgence, adventure, and enchantment. Discover the Serengeti like never before—your extraordinary escape awaits. 🌄
 ## Demo
 
 ![App Walkthrough](public/app-walkthrough.gif)
