@@ -2,7 +2,7 @@
   <img src="public/dashboard.png" alt="Serengeti Sky Lodges" width="800">
 </p>
  
-
+ 
 
 [![Playful Badge: Nature's Haven](https://img.shields.io/badge/%F0%9F%8C%B3-Nature's%20Haven-green)](https://serengeti-sky-lodges.vercel.app)
 [![Playful Badge: Luxurious Escapes](https://img.shields.io/badge/%F0%9F%8C%85-Luxurious%20Escapes-blue)](https://serengeti-sky-lodges.vercel.app)
