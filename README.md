@@ -1,6 +1,6 @@
 <p align="center">
   <img src="public/dashboard.png" alt="Serengeti Sky Lodges" width="800">
-</p>
+</p> 
   
  
 
